@@ -34,6 +34,14 @@ import ReactImg from "../images/React.png";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PortfolioImg from "../images/portfolio_img.png";
 import ContactForm from "./ContactForm";
+import { motion } from "framer-motion";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CodeIcon from "@mui/icons-material/Code";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import EmailIcon from "@mui/icons-material/Email";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+
 const BtnTxt = ["GITHUB", "LINKED-IN", "TWEETER"];
 const navLinks = [
   { name: "Home", href: "#", active: true },
@@ -139,6 +147,30 @@ const logos = [
   { src: ReactImg, left: "70%", size: 60, delay: 6, name: "React.js" },
   { src: HTMLImg, left: "85%", size: 50, delay: 8, name: "HTML" },
 ];
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+    },
+  },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 export default function Portfolio() {
   // const [hover, setHover] = React.useState(false);
   const colors = useMemo(
@@ -306,52 +338,194 @@ export default function Portfolio() {
         </Drawer>
 
         {/* Hero Section */}
+        {/* HERO SECTION */}
         <Box
           sx={{
-            py: 8,
-            px: 4,
+            minHeight: "85vh",
+            position: "relative",
+            overflow: "hidden",
             display: "flex",
-            justifyContent: "center",
-            textAlign: "center",
+            alignItems: "center",
           }}
         >
-          <Box sx={{ maxWidth: 900 }}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              I am a Web designer.
-            </Typography>
-            <Typography variant="body1" sx={{ color: "#9aa4b2", mb: 3 }}>
-              Clean, modern interfaces focused on clarity and delightful micro
-              interactions.
-            </Typography>
-            <Box>
-              <Button
-                variant="contained"
+          {/* Video Background */}
+          <Box
+            component="video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            sx={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              zIndex: 0,
+              opacity: 0.22,
+            }}
+          >
+            <source src="/videos/developer-bg.mp4" type="video/mp4" />
+          </Box>
+
+          {/* Dark Overlay */}
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(120deg, rgba(5,12,25,.95), rgba(8,25,45,.75))",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Animated Glow */}
+          <Box
+            component={motion.div}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.4, 0.8, 0.4],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+            }}
+            sx={{
+              position: "absolute",
+              width: 450,
+              height: 450,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(96,165,250,.35), transparent 70%)",
+              right: "-100px",
+              top: "20%",
+              zIndex: 1,
+            }}
+          />
+
+          <Box
+            sx={{
+              position: "relative",
+              zIndex: 2,
+              width: "100%",
+              maxWidth: 1300,
+              mx: "auto",
+              px: { xs: 3, md: 6 },
+            }}
+          >
+            <Box
+              component={motion.div}
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+              sx={{
+                maxWidth: 850,
+              }}
+            >
+              <Typography
+                component={motion.p}
+                variants={fadeUp}
                 sx={{
-                  mr: 2,
-                  borderRadius: "10px",
-                  background: "linear-gradient(90deg,#6ee7b7,#60a5fa)",
-                  color: "#052127",
+                  color: "#6ee7b7",
+                  fontSize: 18,
                   fontWeight: 600,
-                  boxShadow: "0 6px 18px rgba(99,102,241,0.12)",
+                  letterSpacing: 2,
+                  mb: 2,
                 }}
               >
-                See Projects
-              </Button>
-              <Button
-                variant="outlined"
+                HELLO, I'M MAYUR KUMBHAR
+              </Typography>
+
+              <Typography
+                component={motion.h1}
+                variants={fadeUp}
                 sx={{
-                  borderRadius: "10px",
-                  color: "#9aa4b2",
-                  borderColor: "rgba(255,255,255,0.06)",
-                  fontWeight: 600,
-                  "&:hover": {
-                    background: "#e6eef6",
-                    color: "#071029",
+                  fontSize: {
+                    xs: "3rem",
+                    sm: "4rem",
+                    md: "5.5rem",
                   },
+                  fontWeight: 800,
+                  lineHeight: 1.05,
+                  mb: 3,
+                  background: "linear-gradient(90deg,#ffffff,#6ee7b7,#60a5fa)",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
                 }}
               >
-                Contact Me
-              </Button>
+                I Build Modern
+                <br />
+                Digital Experiences.
+              </Typography>
+
+              <Typography
+                component={motion.p}
+                variants={fadeUp}
+                sx={{
+                  color: "#aab4c4",
+                  fontSize: {
+                    xs: 17,
+                    md: 21,
+                  },
+                  lineHeight: 1.8,
+                  maxWidth: 650,
+                  mb: 4,
+                }}
+              >
+                Frontend Developer & Web Designer focused on building
+                high-performance, responsive and visually engaging web
+                experiences.
+              </Typography>
+
+              <Box
+                component={motion.div}
+                variants={fadeUp}
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  flexWrap: "wrap",
+                }}
+              >
+                <Button
+                  href="#projects"
+                  variant="contained"
+                  endIcon={<ArrowForwardIcon />}
+                  sx={{
+                    px: 3,
+                    py: 1.5,
+                    borderRadius: 3,
+                    fontWeight: 700,
+                    background: "linear-gradient(90deg,#6ee7b7,#60a5fa)",
+                    color: "#06111f",
+                    transition: "0.3s",
+                    "&:hover": {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 15px 35px rgba(96,165,250,.35)",
+                    },
+                  }}
+                >
+                  Explore Projects
+                </Button>
+
+                <Button
+                  href="#contact"
+                  variant="outlined"
+                  startIcon={<EmailIcon />}
+                  sx={{
+                    px: 3,
+                    py: 1.5,
+                    borderRadius: 3,
+                    color: "#fff",
+                    borderColor: "rgba(255,255,255,.3)",
+                    "&:hover": {
+                      borderColor: "#6ee7b7",
+                      background: "rgba(110,231,183,.08)",
+                    },
+                  }}
+                >
+                  Contact Me
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -388,33 +562,39 @@ export default function Portfolio() {
                 }}
               >
                 <Card
+                  component={motion.div}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.15,
+                  }}
+                  whileHover={{
+                    y: -12,
+                  }}
                   sx={{
                     position: "relative",
                     maxWidth: 425,
                     margin: "0 auto",
-                    borderRadius: "14px",
+                    borderRadius: "22px",
                     overflow: "hidden",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    minHeight: 380,
+
                     background:
-                      "linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))",
-                    boxShadow: "0 6px 20px rgba(2,6,23,0.6)",
-                    border: "1px solid rgba(255,255,255,0.03)",
-                    transition: "0.4s ease-in-out",
-                    cursor: "pointer",
-                    "&:hover .hover-bg": {
-                      opacity: 1,
-                      transform: "scale(1.05)",
+                      "linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02))",
+
+                    backdropFilter: "blur(20px)",
+
+                    border: "1px solid rgba(255,255,255,.1)",
+
+                    boxShadow: "0 15px 40px rgba(0,0,0,.35)",
+
+                    transition: "all .4s ease",
+
+                    "&:hover": {
+                      boxShadow: "0 25px 60px rgba(96,165,250,.25)",
                     },
-                    "&:hover .hover-content": {
-                      opacity: 0,
-                    },
-                    "&:hover .project-title": {
-                      fontSize: "2rem",
-                      textAlign: "center",
-                    },
-                    textAlign: "center",
                   }}
                 >
                   {/* Background Image */}
@@ -628,7 +808,107 @@ export default function Portfolio() {
           </Modal>
         </Box>
       </Box>
+      {/* VIDEO SHOWCASE */}
+      <Box
+        sx={{
+          py: { xs: 8, md: 12 },
+          px: { xs: 2, md: 6 },
+          maxWidth: 1300,
+          mx: "auto",
+        }}
+      >
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          sx={{
+            textAlign: "center",
+            mb: 6,
+          }}
+        >
+          <Typography
+            sx={{
+              color: "#6ee7b7",
+              fontWeight: 700,
+              letterSpacing: 2,
+            }}
+          >
+            MY WORK IN MOTION
+          </Typography>
 
+          <Typography
+            variant="h2"
+            sx={{
+              color: "#fff",
+              fontWeight: 800,
+              mt: 1,
+            }}
+          >
+            Design. Code. Experience.
+          </Typography>
+        </Box>
+
+        <Box
+          component={motion.div}
+          whileHover={{
+            scale: 1.02,
+          }}
+          sx={{
+            position: "relative",
+            borderRadius: 5,
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,.12)",
+            boxShadow: "0 25px 80px rgba(0,0,0,.45)",
+          }}
+        >
+          <Box
+            component="video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            sx={{
+              width: "100%",
+              display: "block",
+              maxHeight: 600,
+              objectFit: "cover",
+            }}
+          >
+            <source src="/videos/portfolio-showcase.mp4" type="video/mp4" />
+          </Box>
+
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background:
+                "linear-gradient(180deg, transparent, rgba(0,0,0,.6))",
+            }}
+          >
+            <IconButton
+              sx={{
+                width: 80,
+                height: 80,
+                background: "rgba(255,255,255,.15)",
+                backdropFilter: "blur(10px)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,.3)",
+                "&:hover": {
+                  background: "#6ee7b7",
+                  color: "#06111f",
+                  transform: "scale(1.1)",
+                },
+              }}
+            >
+              <PlayArrowIcon fontSize="large" />
+            </IconButton>
+          </Box>
+        </Box>
+      </Box>
       {/* Experience */}
       <Box
         sx={{
@@ -920,19 +1200,58 @@ export default function Portfolio() {
                 </Box>
                 <Box sx={{ flex: { xs: "1 1 100%", md: 1 }, minWidth: 0 }}>
                   <Box
-                    component="img"
-                    src={manImg}
-                    alt="Mayur Kumbhar"
+                    component={motion.div}
+                    initial={{ opacity: 0, x: 60 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
                     sx={{
-                      width: "100%",
-                      maxWidth: 550,
-                      borderRadius: "10px",
-                      objectFit: "cover",
-                      transform: "scaleX(-1)",
-                      mx: "auto",
-                      display: "block",
+                      flex: { xs: "1 1 100%", md: 1 },
+                      minWidth: 0,
+                      position: "relative",
                     }}
-                  />
+                  >
+                    {/* Glow */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        width: "90%",
+                        height: "90%",
+                        background: "linear-gradient(135deg,#6ee7b7,#60a5fa)",
+                        filter: "blur(70px)",
+                        opacity: 0.2,
+                        top: "5%",
+                        left: "5%",
+                      }}
+                    />
+
+                    <Box
+                      component={motion.div}
+                      whileHover={{
+                        scale: 1.03,
+                        rotate: 1,
+                      }}
+                      sx={{
+                        position: "relative",
+                        zIndex: 1,
+                        borderRadius: 5,
+                        overflow: "hidden",
+                        border: "1px solid rgba(255,255,255,.15)",
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src={manImg}
+                        alt="Mayur Kumbhar"
+                        sx={{
+                          width: "100%",
+                          maxWidth: 550,
+                          display: "block",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </Box>
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -941,82 +1260,225 @@ export default function Portfolio() {
       </Box>
 
       {/* {"Contact Section"} */}
+      {/* CONTACT SECTION */}
       <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          gap: 4,
-        }}
         id="contact"
+        sx={{
+          py: { xs: 8, md: 12 },
+          px: { xs: 2, md: 6 },
+          maxWidth: 1400,
+          mx: "auto",
+        }}
       >
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ textAlign: "center", p: 4, width: "100%" }}>
-            <Typography
-              variant="h2"
-              gutterBottom
-              sx={{ fontWeight: 650, color: "#e6eef6" }}
-            >
-              Contact Me
-            </Typography>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
+          <Typography
+            sx={{
+              color: "#6ee7b7",
+              fontWeight: 700,
+              letterSpacing: 2,
+            }}
+          >
+            GET IN TOUCH
+          </Typography>
 
-            <Box
+          <Typography
+            variant="h2"
+            sx={{
+              color: "#fff",
+              fontWeight: 800,
+              mt: 1,
+            }}
+          >
+            Let's Build Something Amazing
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "grid",
+
+            gridTemplateColumns: {
+              xs: "1fr",
+              md: "1fr 1fr",
+            },
+
+            gap: 0,
+
+            borderRadius: 5,
+            overflow: "hidden",
+
+            border: "1px solid rgba(255,255,255,.1)",
+
+            background: "rgba(255,255,255,.03)",
+
+            backdropFilter: "blur(20px)",
+          }}
+        >
+          {/* LEFT SIDE - CONTACT FORM */}
+          <Box
+            component={motion.div}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            sx={{
+              width: "100%",
+              p: {
+                xs: 3,
+                md: 6,
+              },
+
+              borderRight: {
+                md: "1px solid rgba(255,255,255,.08)",
+              },
+            }}
+          >
+            <Typography
+              variant="h4"
               sx={{
-                p: 4,
-                flexGrow: 1,
-                textAlign: "start",
-                borderRadius: "15px",
-                backgroundColor: "#9191910d", // optional background for visibility
+                color: "#fff",
+                fontWeight: 700,
+                mb: 1,
               }}
             >
+              Send Me a Message
+            </Typography>
+
+            <Typography
+              sx={{
+                color: "#9aa4b2",
+                mb: 4,
+              }}
+            >
+              Have a project in mind? Let's discuss how we can bring your ideas
+              to life.
+            </Typography>
+
+            <ContactForm />
+          </Box>
+
+          {/* RIGHT SIDE - MAP + CONTACT INFO */}
+          <Box
+            component={motion.div}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            sx={{
+              width: "100%",
+              minHeight: 600,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {/* MAP */}
+            <Box
+              sx={{
+                height: {
+                  xs: 300,
+                  md: 400,
+                },
+                width: "100%",
+              }}
+            >
+              <iframe
+                title="Location Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0201333834435!2d-122.4218194846819!3d37.77492977975959"
+                width="100%"
+                height="100%"
+                style={{
+                  border: 0,
+                  display: "block",
+                }}
+                loading="lazy"
+                allowFullScreen
+              />
+            </Box>
+
+            {/* CONTACT DETAILS */}
+            <Box
+              sx={{
+                flex: 1,
+                p: {
+                  xs: 3,
+                  md: 5,
+                },
+                background: "rgba(255,255,255,.025)",
+              }}
+            >
+              <Typography
+                variant="h5"
+                sx={{
+                  color: "#fff",
+                  fontWeight: 700,
+                  mb: 3,
+                }}
+              >
+                Contact Information
+              </Typography>
+
               <Box
                 sx={{
                   display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "flex-start",
-                  gap: 4,
+                  gap: 2,
+                  mb: 3,
                 }}
               >
-                <Box
-                  sx={{ flex: { xs: "1 1 100%", md: "0 1 auto" }, minWidth: 0 }}
-                >
-                  <Box
+                <EmailIcon
+                  sx={{
+                    color: "#6ee7b7",
+                  }}
+                />
+
+                <Box>
+                  <Typography
                     sx={{
-                      p: 2,
                       color: "#9aa4b2",
-                      width: { xs: "auto", sm: 400, md: 600 },
+                      fontSize: 14,
                     }}
                   >
-                    <ContactForm />
-                  </Box>
-                </Box>
-                <Box
-                  sx={{ flex: { xs: "1 1 100%", md: "1 1 auto" }, minWidth: 0 }}
-                >
-                  <Paper
-                    elevation={3}
+                    EMAIL
+                  </Typography>
+
+                  <Typography
                     sx={{
-                      height: { xs: "auto", sm: 400, md: 420 },
-                      width: { xs: "100%", sm: 550, md: 650, lg: 1000 },
-                      maxWidth: "100%",
-                      border: 1,
-                      borderRadius: "15px",
-                      overflow: "hidden",
-                      marginTop: "28px",
+                      color: "#fff",
                     }}
                   >
-                    <iframe
-                      title="Location Map"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0201333834435!2d-122.4218194846819!3d37.77492977975959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085815382c1ab3d%3A0x4a06f3c0f7eb78cb!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1664820033376!5m2!1sen!2sus"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 1, mt: 2 }}
-                      allowFullScreen=""
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </Paper>
+                    your-email@gmail.com
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                }}
+              >
+                <LocationOnIcon
+                  sx={{
+                    color: "#60a5fa",
+                  }}
+                />
+
+                <Box>
+                  <Typography
+                    sx={{
+                      color: "#9aa4b2",
+                      fontSize: 14,
+                    }}
+                  >
+                    LOCATION
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      color: "#fff",
+                    }}
+                  >
+                    Pune, Maharashtra, India
+                  </Typography>
                 </Box>
               </Box>
             </Box>
