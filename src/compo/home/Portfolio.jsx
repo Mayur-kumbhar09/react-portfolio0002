@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Box,
   AppBar,
@@ -35,8 +35,6 @@ import ReactImg from "../images/React.png";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PortfolioImg from "../images/portfolio_img.png";
 import ContactForm from "./ContactForm";
-import { keyframes } from "@emotion/react";
-// import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 const BtnTxt = ["GITHUB", "LINKED-IN", "TWEETER"];
 const navLinks = [
   { name: "Home", href: "#", active: true },
@@ -144,7 +142,10 @@ const logos = [
 ];
 export default function Portfolio() {
   // const [hover, setHover] = React.useState(false);
-  const colors = ["#2196f3", "#4caf50", "#ff9800", "#9c27b0", "#e91e63"]; // Blue, Green, Orange, Purple, Pink
+  const colors = useMemo(
+    () => ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4"],
+    [],
+  ); // Blue, Green, Orange, Purple, Pink
   const [currentColor, setCurrentColor] = useState(colors[0]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [open, setOpen] = useState(false);
