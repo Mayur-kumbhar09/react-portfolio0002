@@ -373,7 +373,7 @@ export default function Portfolio() {
             Projects
           </Typography>
 
-          <Grid container spacing={3} justifyContent="center">
+          <Grid container spacing={2} justifyContent="center">
             {projects.map((data, index) => (
               <Grid key={index}>
                 <Card
@@ -616,30 +616,7 @@ export default function Portfolio() {
           </Modal>
         </Box>
       </Box>
-      <Box
-        sx={{
-          backgroundColor: "white",
-          overflow: "hidden",
-          width: "100%",
-          py: 1, // vertical padding (theme spacing)
-        }}
-      >
-        <Typography
-          variant="body1"
-          sx={{
-            display: "inline-block",
-            whiteSpace: "nowrap",
-            animation: `${scrollLeft} 15s linear infinite`,
-            background: "linear-gradient(to right, #6a11cb, #2575fc)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            px: 2,
-          }}
-        >
-          Welcome to my portfolio! Explore my latest projects and discover my
-          creative journey.
-        </Typography>
-      </Box>
+
       {/* Experience */}
       <Grid container spacing={4} alignItems="start" justifyContent="center">
         <Grid>
