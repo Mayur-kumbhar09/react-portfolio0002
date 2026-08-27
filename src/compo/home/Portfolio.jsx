@@ -159,7 +159,7 @@ export default function Portfolio() {
     }, 5000); // Change every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [colors]);
 
   const handleOpen = (project) => {
     console.log("The project btn id is: ", project);
@@ -172,19 +172,12 @@ export default function Portfolio() {
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
-  const scrollLeft = keyframes`
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-`;
+
   return (
     <>
-    <Typography>Hello i am here </Typography>
-    <Typography>Hello i am here </Typography>
-    <Typography>Hello i am here </Typography>
+      <Typography>Hello i am here </Typography>
+      <Typography>Hello i am here </Typography>
+      <Typography>Hello i am here </Typography>
       <AnimatedBackground />
       <Box
         sx={{
