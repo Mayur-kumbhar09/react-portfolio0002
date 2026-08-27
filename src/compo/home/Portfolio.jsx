@@ -176,9 +176,6 @@ export default function Portfolio() {
 
   return (
     <>
-      <Typography>Hello i am here </Typography>
-      <Typography>Hello i am here </Typography>
-      <Typography>Hello i am here </Typography>
       <AnimatedBackground />
       <Box
         sx={{
@@ -370,9 +367,27 @@ export default function Portfolio() {
             Projects
           </Typography>
 
-          <Grid container spacing={2} justifyContent="center">
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 2,
+              justifyContent: "center",
+            }}
+          >
             {projects.map((data, index) => (
-              <Grid key={index}>
+              <Box
+                key={index}
+                sx={{
+                  flex: {
+                    xs: "1 1 100%",
+                    sm: "1 1 calc(50% - 16px)",
+                    md: "1 1 calc(33.333% - 16px)",
+                  },
+                  maxWidth: { xs: "100%", sm: "calc(50% - 16px)", md: 425 },
+                  minWidth: 0,
+                }}
+              >
                 <Card
                   sx={{
                     position: "relative",
@@ -438,6 +453,7 @@ export default function Portfolio() {
                       display: "flex",
                       flexDirection: "column",
                       height: "100%",
+                      width: "100%",
                     }}
                   >
                     <Box
@@ -522,9 +538,9 @@ export default function Portfolio() {
                     </CardActions>
                   </Box>
                 </Card>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
 
           {/* Modal Section */}
           <Modal
@@ -615,8 +631,16 @@ export default function Portfolio() {
       </Box>
 
       {/* Experience */}
-      <Grid container spacing={4} alignItems="start" justifyContent="center">
-        <Grid>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          gap: 4,
+        }}
+      >
+        <Box sx={{ width: "100%" }}>
           <Box sx={{ textAlign: "center", p: 4, width: "100%" }}>
             <Typography
               variant="h2"
@@ -635,17 +659,25 @@ export default function Portfolio() {
                 backgroundColor: "#9191910d",
               }}
             >
-              <Grid
-                container
-                spacing={4}
-                alignItems="center"
-                direction={{ xs: "column", md: "row" }}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" },
+                  alignItems: { xs: "stretch", md: "center" },
+                  gap: 4,
+                }}
               >
                 {/* === Experience Section === */}
-                <Grid>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
                   <Box sx={{ p: 2, color: "#9aa4b2" }}>
-                    <Grid container>
-                      <Grid>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box>
                         <Typography
                           variant="h4"
                           sx={{
@@ -655,8 +687,8 @@ export default function Portfolio() {
                         >
                           Executive Web Designer at LPC Advisors Pvt. Ltd.
                         </Typography>
-                      </Grid>
-                      <Grid sx={{ textAlign: "end" }}>
+                      </Box>
+                      <Box sx={{ textAlign: "end" }}>
                         <Typography
                           variant="h4"
                           sx={{
@@ -667,8 +699,8 @@ export default function Portfolio() {
                         >
                           &nbsp;&nbsp;&nbsp;1 yr 10 M
                         </Typography>
-                      </Grid>
-                    </Grid>
+                      </Box>
+                    </Box>
 
                     <br />
 
@@ -680,10 +712,10 @@ export default function Portfolio() {
                       overall user experience.
                     </Typography>
                   </Box>
-                </Grid>
+                </Box>
 
                 {/* Vertical Divider (only on md+ screens) */}
-                <Grid
+                <Box
                   sx={{
                     display: { xs: "none", md: "flex" },
                     alignSelf: "stretch",
@@ -694,10 +726,10 @@ export default function Portfolio() {
                     flexItem
                     sx={{ borderColor: "gray" }}
                   />
-                </Grid>
+                </Box>
 
                 {/* === Certificates Section === */}
-                <Grid>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
                   <Box sx={{ p: 2, color: "#9aa4b2", textAlign: "center" }}>
                     <Typography
                       variant="h4"
@@ -772,22 +804,25 @@ export default function Portfolio() {
                       </Typography>
                     </Box>
                   </Box>
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </Box>
           </Box>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
 
       {/* About */}
-      <Grid
-        container
-        spacing={4}
-        alignItems="start"
-        justifyContent="center"
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          gap: 4,
+        }}
         id="about"
       >
-        <Grid>
+        <Box sx={{ width: "100%" }}>
           <Box sx={{ textAlign: "center", p: 4, width: "100%" }}>
             <Typography
               variant="h2"
@@ -806,8 +841,21 @@ export default function Portfolio() {
                 backgroundColor: "#9191910d", // optional background for visibility
               }}
             >
-              <Grid container spacing={4} alignItems="start">
-                <Grid sx={{ margin: "auto" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "flex-start",
+                  gap: 4,
+                }}
+              >
+                <Box
+                  sx={{
+                    flex: { xs: "1 1 100%", md: 1 },
+                    minWidth: 0,
+                    margin: "auto",
+                  }}
+                >
                   <Box sx={{ p: 2, color: "#9aa4b2", width: "auto" }}>
                     <Typography
                       variant="h3"
@@ -839,9 +887,16 @@ export default function Portfolio() {
                       <Typography variant="h4" gutterBottom>
                         Skills
                       </Typography>
-                      <Grid container spacing={3} justifyContent="center">
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: 3,
+                          justifyContent: "center",
+                        }}
+                      >
                         {logos.map((logo, index) => (
-                          <Grid key={index}>
+                          <Box key={index}>
                             <Box sx={{ textAlign: "center" }}>
                               <img
                                 src={logo.src}
@@ -858,13 +913,13 @@ export default function Portfolio() {
                                 {logo.name}
                               </Typography>
                             </Box>
-                          </Grid>
+                          </Box>
                         ))}
-                      </Grid>
+                      </Box>
                     </Box>
                   </Box>
-                </Grid>
-                <Grid>
+                </Box>
+                <Box sx={{ flex: { xs: "1 1 100%", md: 1 }, minWidth: 0 }}>
                   <Box
                     component="img"
                     src={manImg}
@@ -879,22 +934,25 @@ export default function Portfolio() {
                       display: "block",
                     }}
                   />
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </Box>
           </Box>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
 
       {/* {"Contact Section"} */}
-      <Grid
-        container
-        spacing={4}
-        alignItems="start"
-        justifyContent="center"
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          gap: 4,
+        }}
         id="contact"
       >
-        <Grid>
+        <Box sx={{ width: "100%" }}>
           <Box sx={{ textAlign: "center", p: 4, width: "100%" }}>
             <Typography
               variant="h2"
@@ -913,8 +971,17 @@ export default function Portfolio() {
                 backgroundColor: "#9191910d", // optional background for visibility
               }}
             >
-              <Grid container spacing={4} alignItems="start">
-                <Grid>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "flex-start",
+                  gap: 4,
+                }}
+              >
+                <Box
+                  sx={{ flex: { xs: "1 1 100%", md: "0 1 auto" }, minWidth: 0 }}
+                >
                   <Box
                     sx={{
                       p: 2,
@@ -924,13 +991,16 @@ export default function Portfolio() {
                   >
                     <ContactForm />
                   </Box>
-                </Grid>
-                <Grid>
+                </Box>
+                <Box
+                  sx={{ flex: { xs: "1 1 100%", md: "1 1 auto" }, minWidth: 0 }}
+                >
                   <Paper
                     elevation={3}
                     sx={{
                       height: { xs: "auto", sm: 400, md: 420 },
-                      width: { xs: "auto", sm: 550, md: 650, lg: 1000 },
+                      width: { xs: "100%", sm: 550, md: 650, lg: 1000 },
+                      maxWidth: "100%",
                       border: 1,
                       borderRadius: "15px",
                       overflow: "hidden",
@@ -948,12 +1018,12 @@ export default function Portfolio() {
                       referrerPolicy="no-referrer-when-downgrade"
                     ></iframe>
                   </Paper>
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </Box>
           </Box>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
 
       {/* {"Footer"} */}
       <Box
@@ -992,6 +1062,7 @@ export default function Portfolio() {
             sx={{
               display: "flex",
               flexDirection: "row",
+              flexWrap: "wrap",
               gap: 2,
               flex: { md: "0 0 33.33%" }, // lg=4/12
               alignContent: "flex-end",
