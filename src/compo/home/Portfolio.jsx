@@ -1,1552 +1,1696 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Box,
-  AppBar,
-  Toolbar,
-  Typography,
   Button,
-  Card,
-  CardContent,
-  CardActions,
   CssBaseline,
-  Link,
-  Divider,
-  Modal,
-  Fade,
-  Paper,
-  Backdrop,
-  IconButton,
   Drawer,
-  List,
-  ListItem,
+  IconButton,
+  TextField,
+  Typography,
+  Chip,
+  Snackbar,
+  Alert,
 } from "@mui/material";
+
+import { motion } from "framer-motion";
+
 import MenuIcon from "@mui/icons-material/Menu";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import CloseIcon from "@mui/icons-material/Close";
+import CodeIcon from "@mui/icons-material/Code";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import AnimationIcon from "@mui/icons-material/Animation";
+import EmailIcon from "@mui/icons-material/Email";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import SendIcon from "@mui/icons-material/Send";
+
 import porjectImgOne from "../images/c_p_manage.jpg";
 import porjectImgTwo from "../images/s_dashboard.jpg";
 import porjectImgThree from "../images/v_mouse.jfif.jpg";
-import backImg from "../images/head-back-thumb.jpg";
-import manImg from "../images/ManImage.jpg";
-import AnimatedBackground from "./AnimatedBackground";
-import HTMLImg from "../images/HTML.png";
-import CSSImg from "../images/CSS.jfif";
-import JSImg from "../images/JS-LOGO.png";
-import ReactImg from "../images/React.png";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PortfolioImg from "../images/portfolio_img.png";
-import ContactForm from "./ContactForm";
-import { motion } from "framer-motion";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import EmailIcon from "@mui/icons-material/Email";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import manImg from "../images/ManImage.jpg";
 
-const BtnTxt = ["GITHUB", "LINKED-IN", "TWEETER"];
-const navLinks = [
-  { name: "Home", href: "#", active: true },
-  { name: "About", href: "#about", active: true },
-  { name: "Contact", href: "#contact", active: true },
+const MotionBox = motion(Box);
+
+const navItems = [
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Work", href: "#work" },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
+];
+
+const services = [
+  {
+    number: "01",
+    icon: <CodeIcon />,
+    title: "Frontend Development",
+    description:
+      "I build fast, responsive and scalable web applications using React.js, JavaScript, HTML, CSS and modern frontend tools.",
+    tags: ["React.js", "JavaScript", "HTML", "CSS", "Material UI"],
+  },
+  {
+    number: "02",
+    icon: <DesignServicesIcon />,
+    title: "UI / Web Design",
+    description:
+      "I create clean and modern user interfaces focused on usability, responsiveness and a smooth user experience.",
+    tags: ["Responsive UI", "Figma", "Material UI", "Tailwind"],
+  },
+  {
+    number: "03",
+    icon: <AnimationIcon />,
+    title: "Interactive Experiences",
+    description:
+      "I use modern animations and micro-interactions to make websites feel alive without sacrificing performance.",
+    tags: ["Framer Motion", "CSS Animation", "UX", "Performance"],
+  },
 ];
 
 const projects = [
   {
-    id: 1,
-    projectName: "Customer Product Manager",
-    projectImage: porjectImgOne,
-    projectDesc:
-      "Customer Product Manager is a web-based tool that helps businesses manage product development based on customer feedback.",
-    techStack: {
-      frontend: "React",
-      backend: "Node.js",
-      database: "MongoDB",
-    },
-    viewPreview: (
-      <Link
-        href="https://user-product-manager.vercel.app/"
-        sx={{ textDecoration: "none", color: "#f2f2f2" }}
-        target="_blank"
-        rel="noreferrer"
-      >
-        View
-      </Link>
-    ),
+    number: "01",
+    title: "Customer Product Manager",
+    image: porjectImgOne,
+    category: "Full Stack Application",
+    description:
+      "A web-based application that helps businesses manage products and customer feedback in one centralized platform.",
+    tech: ["React", "Node.js", "MongoDB"],
+    link: "https://user-product-manager.vercel.app/",
   },
   {
-    id: 2,
-    projectName: "Student Dashboard",
-    projectImage: porjectImgTwo,
-    projectDesc:
-      "Student Dashboard is an intuitive platform for students to track their academic progress, manage tasks, and access learning resources in one centralized place.",
-    techStack: {
-      frontend: "React",
-      backend: "Node.js",
-      database: "MySQL",
-    },
-    viewPreview: (
-      <Link
-        href=""
-        sx={{ textDecoration: "none", color: "#f2f2f2" }}
-        target="_blank"
-        rel="noreferrer"
-      >
-        View
-      </Link>
-    ),
+    number: "02",
+    title: "Student Dashboard",
+    image: porjectImgTwo,
+    category: "Dashboard Application",
+    description:
+      "A centralized student platform for managing academic progress, tasks and learning resources.",
+    tech: ["React", "Node.js", "MySQL"],
+    link: "#",
   },
   {
-    id: 3,
-    projectName: "Virtual Mouse",
-    projectImage: porjectImgThree,
-    projectDesc:
-      "Virtual Mouse enables users to control the cursor using hand gestures and a webcam, enhancing accessibility and providing a touch-free interface experience.",
-    techStack: {
-      frontend: "HTML/CSS/JS",
-      backend: "Python (OpenCV)",
-      database: "None",
-    },
-    viewPreview: (
-      <Link
-        href=""
-        sx={{ textDecoration: "none", color: "#f2f2f2" }}
-        target="_blank"
-        rel="noreferrer"
-      >
-        View
-      </Link>
-    ),
+    number: "03",
+    title: "Virtual Mouse",
+    image: porjectImgThree,
+    category: "Machine Learning Project",
+    description:
+      "A touch-free computer interaction system that controls the cursor using hand gestures and computer vision.",
+    tech: ["Python", "OpenCV", "Machine Learning"],
+    link: "#",
   },
   {
-    id: 4,
-    projectName: "Personal Portfolio",
-    projectImage: PortfolioImg,
-    projectDesc:
-      "Personal Portfolio is a responsive website showcasing a developer's skills, projects, and contact information, designed with modern UI and smooth user experience.",
-    techStack: {
-      frontend: "React",
-      backend: "None",
-      database: "None",
-    },
-    viewPreview: (
-      <Link
-        href="#"
-        sx={{ textDecoration: "none", color: "#f2f2f2" }}
-        target="_blank"
-        rel="noreferrer"
-      >
-        View
-      </Link>
-    ),
+    number: "04",
+    title: "Personal Portfolio",
+    image: PortfolioImg,
+    category: "Frontend Development",
+    description:
+      "A responsive personal portfolio designed to showcase projects, technical skills and professional experience.",
+    tech: ["React", "Material UI", "Framer Motion"],
+    link: "#",
   },
 ];
 
-const logos = [
-  { src: HTMLImg, left: "10%", size: 60, delay: 0, name: "HTML" },
-  { src: CSSImg, left: "30%", size: 50, delay: 2, name: "CSS" },
-  { src: JSImg, left: "50%", size: 70, delay: 4, name: "JavaScript" },
-  { src: ReactImg, left: "70%", size: 60, delay: 6, name: "React.js" },
-  { src: HTMLImg, left: "85%", size: 50, delay: 8, name: "HTML" },
+const skills = [
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "React.js",
+  "Material UI",
+  "Tailwind CSS",
+  "Node.js",
+  "Express.js",
+  "Java",
+  "Spring Boot",
+  "Python",
+  "FastAPI",
+  "MySQL",
+  "MongoDB",
+  "Git",
+  "GitHub",
+  "Vercel",
 ];
 
-const fadeUp = {
+const sectionAnimation = {
   hidden: {
     opacity: 0,
-    y: 50,
+    y: 60,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.7,
+      duration: 0.8,
       ease: "easeOut",
     },
   },
 };
 
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
 export default function Portfolio() {
-  // const [hover, setHover] = React.useState(false);
-  const colors = useMemo(
-    () => ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4"],
-    [],
-  ); // Blue, Green, Orange, Purple, Pink
-  const [currentColor, setCurrentColor] = useState(colors[0]);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentColor((prevColor) => {
-        const currentIndex = colors.indexOf(prevColor);
-        const nextIndex = (currentIndex + 1) % colors.length;
-        return colors[nextIndex];
-      });
-    }, 5000); // Change every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [colors]);
-
-  const handleOpen = (project) => {
-    console.log("The project btn id is: ", project);
-    setSelectedProject(project);
-    setOpen(true);
-  };
-  const handleClose = () => setOpen(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
-  const toggleDrawer = (open) => () => {
-    setDrawerOpen(open);
+  const [success, setSuccess] = useState(false);
+
+  const theme = useMemo(
+    () => ({
+      background: "#0a0a0a",
+      surface: "#111111",
+      surfaceLight: "#161616",
+      text: "#f5f5f5",
+      muted: "#9b9b9b",
+      accent: "#b7ff3c",
+      border: "rgba(255,255,255,0.12)",
+    }),
+    [],
+  );
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("Contact Form Data:", formData);
+
+    /*
+      CUSTOMIZATION OPTIONS:
+
+      1. EmailJS
+      2. Formspree
+      3. Your Node.js backend
+      4. Firebase
+      5. Web3Forms
+
+      Replace this function with your preferred API.
+    */
+
+    setSuccess(true);
+
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
   };
 
   return (
     <>
-      <AnimatedBackground />
+      <CssBaseline />
+
       <Box
         sx={{
-          minHeight: "50vh",
-          height: "100%",
-          // background: "linear-gradient(180deg,#071029 0%, #0f1724 100%)",
-          backgroundImage: `url(${backImg})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          color: "#e6eef6",
+          background: theme.background,
+          color: theme.text,
+          minHeight: "100vh",
           fontFamily:
-            "Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue'",
+            "'Inter', 'Helvetica Neue', Arial, sans-serif",
+          overflow: "hidden",
         }}
       >
-        <CssBaseline />
+        {/* ========================= */}
+        {/* NAVIGATION */}
+        {/* ========================= */}
 
-        {/* Header */}
-        <AppBar
-          position="static"
-          sx={{ background: "transparent", boxShadow: "none", px: 4, pt: 2 }}
+        <Box
+          component="header"
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            zIndex: 100,
+            backdropFilter: "blur(18px)",
+            background: "rgba(10,10,10,0.72)",
+            borderBottom: `1px solid ${theme.border}`,
+          }}
         >
-          <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-            {/* Logo */}
+          <Box
+            sx={{
+              maxWidth: 1500,
+              mx: "auto",
+              px: { xs: 2, md: 5 },
+              height: 76,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography
-              variant="h6"
+              component="a"
+              href="#home"
               sx={{
-                fontWeight: 700,
-                background: "linear-gradient(90deg,#fff,#bde9d6)",
-                WebkitBackgroundClip: "text",
-                color: "transparent",
-                fontSize: 24,
+                color: theme.text,
+                textDecoration: "none",
+                fontWeight: 900,
+                fontSize: { xs: 22, md: 28 },
+                letterSpacing: "-1px",
               }}
             >
-              MK.
+              MAYUR<span style={{ color: theme.accent }}>.</span>
             </Typography>
 
-            {/* Desktop Nav */}
             <Box
               sx={{
-                display: { xs: "none", md: "flex" }, // Show only on md and up
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+                gap: 3,
               }}
             >
-              {navLinks.map(({ name, href, active }) => (
-                <Link
-                  key={name}
-                  href={href}
-                  underline="none"
+              {navItems.map((item) => (
+                <Typography
+                  key={item.label}
+                  component="a"
+                  href={item.href}
                   sx={{
-                    ml: 2,
-                    px: active ? 1.5 : 0,
-                    py: active ? 1 : 0,
-                    borderRadius: 2,
-                    color: active ? "#e6eef6" : "#e6eef6aa",
-                    background: active
-                      ? "rgba(255,255,255,0.04)"
-                      : "transparent",
-                    backdropFilter: active ? "blur(6px)" : "none",
+                    color: theme.muted,
+                    textDecoration: "none",
+                    fontSize: 14,
+                    transition: "0.3s",
                     "&:hover": {
-                      background: "#e6eef6",
-                      color: "#071029",
+                      color: theme.accent,
                     },
                   }}
                 >
-                  {name}
-                </Link>
+                  {item.label}
+                </Typography>
               ))}
+
+              <Button
+                href="#contact"
+                sx={{
+                  ml: 2,
+                  color: "#0a0a0a",
+                  background: theme.accent,
+                  borderRadius: 0,
+                  px: 2.5,
+                  fontWeight: 800,
+                  "&:hover": {
+                    background: "#ffffff",
+                  },
+                }}
+              >
+                Let's Talk
+              </Button>
             </Box>
 
-            {/* Mobile Menu Icon */}
             <IconButton
-              edge="end"
-              color="inherit"
-              aria-label="menu"
-              sx={{ display: { xs: "block", md: "none" } }}
-              onClick={toggleDrawer(true)}
+              onClick={() => setDrawerOpen(true)}
+              sx={{
+                display: { xs: "flex", md: "none" },
+                color: theme.text,
+              }}
             >
               <MenuIcon />
             </IconButton>
-          </Toolbar>
-        </AppBar>
+          </Box>
+        </Box>
 
-        {/* Drawer for Mobile Nav */}
+        {/* ========================= */}
+        {/* MOBILE MENU */}
+        {/* ========================= */}
+
         <Drawer
           anchor="right"
           open={drawerOpen}
-          onClose={toggleDrawer(false)}
+          onClose={() => setDrawerOpen(false)}
           PaperProps={{
-            sx: { background: "#0b1c2c", color: "#fff", width: 250 },
+            sx: {
+              width: "100%",
+              maxWidth: 420,
+              background: "#0a0a0a",
+              color: theme.text,
+            },
           }}
         >
-          <Box sx={{ p: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              Menu
-            </Typography>
-            <List>
-              {navLinks.map(({ name, href, active }) => (
-                <ListItem
-                  button
-                  key={name}
-                  component="a"
-                  href={href}
-                  onClick={toggleDrawer(false)}
+          <Box sx={{ p: 3 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 8,
+              }}
+            >
+              <Typography fontWeight={900} fontSize={26}>
+                MAYUR<span style={{ color: theme.accent }}>.</span>
+              </Typography>
+
+              <IconButton
+                onClick={() => setDrawerOpen(false)}
+                sx={{ color: theme.text }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
+
+            {navItems.map((item, index) => (
+              <Typography
+                key={item.label}
+                component="a"
+                href={item.href}
+                onClick={() => setDrawerOpen(false)}
+                sx={{
+                  display: "block",
+                  color: theme.text,
+                  textDecoration: "none",
+                  fontSize: 38,
+                  fontWeight: 800,
+                  mb: 2,
+                }}
+              >
+                <span
+                  style={{
+                    color: theme.accent,
+                    fontSize: 15,
+                    marginRight: 15,
+                  }}
                 >
-                  <Link
-                    key={name}
-                    href={href}
-                    underline="none"
-                    sx={{
-                      ml: 2,
-                      px: active ? 1.5 : 0,
-                      py: active ? 1 : 0,
-                      borderRadius: 2,
-                      color: active ? "#e6eef6" : "#e6eef6aa",
-                      background: active ? "transparent" : "transparent",
-                      backdropFilter: active ? "blur(6px)" : "none",
-                      "&:hover": {
-                        background: "#e6eef6",
-                        color: "#071029",
-                      },
-                    }}
-                  >
-                    {name}
-                  </Link>
-                </ListItem>
-              ))}
-            </List>
+                  0{index + 1}
+                </span>
+                {item.label}
+              </Typography>
+            ))}
           </Box>
         </Drawer>
 
-        {/* Hero Section */}
-        {/* HERO SECTION */}
+        {/* ========================= */}
+        {/* HERO */}
+        {/* ========================= */}
+
         <Box
+          id="home"
           sx={{
-            minHeight: "85vh",
+            minHeight: "100vh",
+            pt: { xs: 16, md: 14 },
+            px: { xs: 2, md: 5 },
             position: "relative",
-            overflow: "hidden",
             display: "flex",
             alignItems: "center",
           }}
         >
-          {/* Video Background */}
-          <Box
-            component="video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            sx={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              zIndex: 0,
-              opacity: 0.22,
-            }}
-          >
-            <source src="/videos/developer-bg.mp4" type="video/mp4" />
-          </Box>
-
-          {/* Dark Overlay */}
+          {/* Background Grid */}
           <Box
             sx={{
               position: "absolute",
               inset: 0,
-              background:
-                "linear-gradient(120deg, rgba(5,12,25,.95), rgba(8,25,45,.75))",
-              zIndex: 1,
+              opacity: 0.12,
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
+              backgroundSize: "70px 70px",
+              maskImage:
+                "linear-gradient(to bottom, black 10%, transparent 90%)",
             }}
           />
 
-          {/* Animated Glow */}
-          <Box
-            component={motion.div}
+          {/* Animated Accent Circle */}
+          <MotionBox
             animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.4, 0.8, 0.4],
+              x: [0, 70, 0],
+              y: [0, -50, 0],
+              scale: [1, 1.2, 1],
             }}
             transition={{
-              duration: 7,
+              duration: 12,
               repeat: Infinity,
+              ease: "easeInOut",
             }}
             sx={{
               position: "absolute",
-              width: 450,
-              height: 450,
+              width: 500,
+              height: 500,
               borderRadius: "50%",
-              background:
-                "radial-gradient(circle, rgba(96,165,250,.35), transparent 70%)",
-              right: "-100px",
+              background: theme.accent,
+              filter: "blur(180px)",
+              opacity: 0.12,
+              right: "-200px",
               top: "20%",
-              zIndex: 1,
             }}
           />
 
           <Box
             sx={{
+              maxWidth: 1500,
+              mx: "auto",
+              width: "100%",
               position: "relative",
               zIndex: 2,
-              width: "100%",
-              maxWidth: 1300,
-              mx: "auto",
-              px: { xs: 3, md: 6 },
             }}
           >
-            <Box
-              component={motion.div}
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-              sx={{
-                maxWidth: 850,
-              }}
+            <MotionBox
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
             >
               <Typography
-                component={motion.p}
-                variants={fadeUp}
                 sx={{
-                  color: "#6ee7b7",
-                  fontSize: 18,
-                  fontWeight: 600,
+                  color: theme.accent,
+                  fontSize: 14,
                   letterSpacing: 2,
-                  mb: 2,
-                }}
-              >
-                HELLO, I'M MAYUR KUMBHAR
-              </Typography>
-
-              <Typography
-                component={motion.h1}
-                variants={fadeUp}
-                sx={{
-                  fontSize: {
-                    xs: "3rem",
-                    sm: "4rem",
-                    md: "5.5rem",
-                  },
-                  fontWeight: 800,
-                  lineHeight: 1.05,
-                  mb: 3,
-                  background: "linear-gradient(90deg,#ffffff,#6ee7b7,#60a5fa)",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
-                I Build Modern
-                <br />
-                Digital Experiences.
-              </Typography>
-
-              <Typography
-                component={motion.p}
-                variants={fadeUp}
-                sx={{
-                  color: "#aab4c4",
-                  fontSize: {
-                    xs: 17,
-                    md: 21,
-                  },
-                  lineHeight: 1.8,
-                  maxWidth: 650,
-                  mb: 4,
-                }}
-              >
-                Frontend Developer & Web Designer focused on building
-                high-performance, responsive and visually engaging web
-                experiences.
-              </Typography>
-
-              <Box
-                component={motion.div}
-                variants={fadeUp}
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  flexWrap: "wrap",
-                }}
-              >
-                <Button
-                  href="#projects"
-                  variant="contained"
-                  endIcon={<ArrowForwardIcon />}
-                  sx={{
-                    px: 3,
-                    py: 1.5,
-                    borderRadius: 3,
-                    fontWeight: 700,
-                    background: "linear-gradient(90deg,#6ee7b7,#60a5fa)",
-                    color: "#06111f",
-                    transition: "0.3s",
-                    "&:hover": {
-                      transform: "translateY(-4px)",
-                      boxShadow: "0 15px 35px rgba(96,165,250,.35)",
-                    },
-                  }}
-                >
-                  Explore Projects
-                </Button>
-
-                <Button
-                  href="#contact"
-                  variant="outlined"
-                  startIcon={<EmailIcon />}
-                  sx={{
-                    px: 3,
-                    py: 1.5,
-                    borderRadius: 3,
-                    color: "#fff",
-                    borderColor: "rgba(255,255,255,.3)",
-                    "&:hover": {
-                      borderColor: "#6ee7b7",
-                      background: "rgba(110,231,183,.08)",
-                    },
-                  }}
-                >
-                  Contact Me
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-
-        {/* Projects */}
-        <Box sx={{ pb: 8, textAlign: "center", px: { xs: 2, md: 4 } }}>
-          <Typography
-            variant="h2"
-            gutterBottom
-            sx={{ fontWeight: 650, fontSize: { xs: 32, sm: 40, md: 48 } }}
-          >
-            Projects
-          </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 2,
-              justifyContent: "center",
-            }}
-          >
-            {projects.map((data, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flex: {
-                    xs: "1 1 100%",
-                    sm: "1 1 calc(50% - 16px)",
-                    md: "1 1 calc(33.333% - 16px)",
-                  },
-                  maxWidth: { xs: "100%", sm: "calc(50% - 16px)", md: 425 },
-                  minWidth: 0,
-                }}
-              >
-                <Card
-                  component={motion.div}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.15,
-                  }}
-                  whileHover={{
-                    y: -12,
-                  }}
-                  sx={{
-                    position: "relative",
-                    maxWidth: 425,
-                    margin: "0 auto",
-                    borderRadius: "22px",
-                    overflow: "hidden",
-                    minHeight: 380,
-
-                    background:
-                      "linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02))",
-
-                    backdropFilter: "blur(20px)",
-
-                    border: "1px solid rgba(255,255,255,.1)",
-
-                    boxShadow: "0 15px 40px rgba(0,0,0,.35)",
-
-                    transition: "all .4s ease",
-
-                    "&:hover": {
-                      boxShadow: "0 25px 60px rgba(96,165,250,.25)",
-                    },
-                  }}
-                >
-                  {/* Background Image */}
-                  <Box
-                    className="hover-bg"
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundImage: `url(${data.projectImage})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                      opacity: 0,
-                      transform: "scale(1)",
-                      transition: "all 0.5s ease-in-out",
-                      zIndex: 1,
-                    }}
-                  />
-
-                  {/* Overlay */}
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundColor: "rgba(0,0,0,0.6)",
-                      zIndex: 2,
-                    }}
-                  />
-
-                  {/* Foreground Content */}
-                  <Box
-                    sx={{
-                      position: "relative",
-                      zIndex: 3,
-                      display: "flex",
-                      flexDirection: "column",
-                      height: "100%",
-                      width: "100%",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        height: 120,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        px: 2,
-                      }}
-                    >
-                      <Typography
-                        className="project-title"
-                        variant="h5"
-                        sx={{
-                          color: "#6ee7b7",
-                          margin: "auto",
-                          fontWeight: 700,
-                          textAlign: "center",
-                          transition: "all 0.3s ease-in-out",
-                        }}
-                      >
-                        {data.projectName}
-                      </Typography>
-                    </Box>
-
-                    <CardContent
-                      className="hover-content"
-                      sx={{
-                        flexGrow: 1,
-                        opacity: 1,
-                        transition: "opacity 0.4s ease",
-                      }}
-                    >
-                      <Typography variant="body2" sx={{ color: "#9aa4b2" }}>
-                        {data.projectDesc}
-                      </Typography>
-                    </CardContent>
-
-                    <CardActions
-                      className="hover-content2"
-                      sx={{
-                        px: 2,
-                        pb: 2,
-                        opacity: 1,
-                        transition: "opacity 0.4s ease",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Button
-                        size="small"
-                        sx={{
-                          borderRadius: "8px",
-                          fontSize: "13px",
-                          fontWeight: 500,
-                          "&:hover": {
-                            background: "#111010ff",
-                            color: "#ffffffff",
-                          },
-                        }}
-                      >
-                        {data.viewPreview}
-                      </Button>
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={() => handleOpen(data)}
-                        sx={{
-                          borderRadius: "8px",
-                          fontSize: "13px",
-                          color: "#9aa4b2",
-                          borderColor: "rgba(255,255,255,0.06)",
-                          ml: 1,
-                          "&:hover": {
-                            background: "#e6eef6",
-                            color: "#071029",
-                          },
-                        }}
-                      >
-                        Details
-                      </Button>
-                    </CardActions>
-                  </Box>
-                </Card>
-              </Box>
-            ))}
-          </Box>
-
-          {/* Modal Section */}
-          <Modal
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            slots={{ backdrop: Backdrop }}
-            slotProps={{
-              backdrop: {
-                timeout: 200,
-              },
-            }}
-          >
-            <Fade in={open}>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  maxWidth: 450,
-                  width: "90%",
-                  borderRadius: "14px",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  px: 2,
-                  py: 3,
-                  background: "rgba(0, 0, 0, 1)",
-                  boxShadow: "0 6px 20px rgba(2,6,23,0.6)",
-                  border: "1px solid rgba(255,255,255,0.03)",
-                  backdropFilter: "blur(12px)",
-                }}
-              >
-                {selectedProject && (
-                  <>
-                    <Typography
-                      variant="h5"
-                      sx={{
-                        color: "#6ee7b7",
-                        fontWeight: 700,
-                        textAlign: "center",
-                        mb: 2,
-                      }}
-                    >
-                      {selectedProject.projectName}
-                    </Typography>
-
-                    <Typography
-                      variant="body2"
-                      sx={{ mb: 2, color: "#d1d5db" }}
-                    >
-                      {selectedProject.projectDesc}
-                    </Typography>
-
-                    <Paper
-                      elevation={3}
-                      sx={{
-                        p: 2,
-                        width: "100%",
-                        backgroundColor: "rgba(255, 255, 255, 0.03)",
-                        borderRadius: 2,
-                        color: "#d1d5db",
-                      }}
-                    >
-                      <Typography variant="subtitle1" gutterBottom>
-                        <strong>Tech Stack:</strong>
-                      </Typography>
-                      <Typography variant="body2">
-                        <strong>Frontend:</strong>{" "}
-                        {selectedProject.techStack.frontend}
-                        <br />
-                        <strong>Backend:</strong>{" "}
-                        {selectedProject.techStack.backend}
-                        <br />
-                        <strong>Database:</strong>{" "}
-                        {selectedProject.techStack.database}
-                      </Typography>
-                    </Paper>
-                  </>
-                )}
-              </Box>
-            </Fade>
-          </Modal>
-        </Box>
-      </Box>
-      {/* VIDEO SHOWCASE */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 12 },
-          px: { xs: 2, md: 6 },
-          maxWidth: 1300,
-          mx: "auto",
-        }}
-      >
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          sx={{
-            textAlign: "center",
-            mb: 6,
-          }}
-        >
-          <Typography
-            sx={{
-              color: "#6ee7b7",
-              fontWeight: 700,
-              letterSpacing: 2,
-            }}
-          >
-            MY WORK IN MOTION
-          </Typography>
-
-          <Typography
-            variant="h2"
-            sx={{
-              color: "#fff",
-              fontWeight: 800,
-              mt: 1,
-            }}
-          >
-            Design. Code. Experience.
-          </Typography>
-        </Box>
-
-        <Box
-          component={motion.div}
-          whileHover={{
-            scale: 1.02,
-          }}
-          sx={{
-            position: "relative",
-            borderRadius: 5,
-            overflow: "hidden",
-            border: "1px solid rgba(255,255,255,.12)",
-            boxShadow: "0 25px 80px rgba(0,0,0,.45)",
-          }}
-        >
-          <Box
-            component="video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            sx={{
-              width: "100%",
-              display: "block",
-              maxHeight: 600,
-              objectFit: "cover",
-            }}
-          >
-            <source src="/videos/portfolio-showcase.mp4" type="video/mp4" />
-          </Box>
-
-          <Box
-            sx={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background:
-                "linear-gradient(180deg, transparent, rgba(0,0,0,.6))",
-            }}
-          >
-            <IconButton
-              sx={{
-                width: 80,
-                height: 80,
-                background: "rgba(255,255,255,.15)",
-                backdropFilter: "blur(10px)",
-                color: "#fff",
-                border: "1px solid rgba(255,255,255,.3)",
-                "&:hover": {
-                  background: "#6ee7b7",
-                  color: "#06111f",
-                  transform: "scale(1.1)",
-                },
-              }}
-            >
-              <PlayArrowIcon fontSize="large" />
-            </IconButton>
-          </Box>
-        </Box>
-      </Box>
-      {/* Experience */}
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          gap: 4,
-        }}
-      >
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ textAlign: "center", p: 4, width: "100%" }}>
-            <Typography
-              variant="h2"
-              gutterBottom
-              sx={{ fontWeight: 650, color: "#e6eef6" }}
-            >
-              Experience
-            </Typography>
-
-            <Box
-              sx={{
-                p: 4,
-                flexGrow: 1,
-                textAlign: "start",
-                borderRadius: "15px",
-                backgroundColor: "#9191910d",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: { xs: "column", md: "row" },
-                  alignItems: { xs: "stretch", md: "center" },
-                  gap: 4,
-                }}
-              >
-                {/* === Experience Section === */}
-                <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Box sx={{ p: 2, color: "#9aa4b2" }}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Box>
-                        <Typography
-                          variant="h4"
-                          sx={{
-                            color: "#e9e9e9ff",
-                            fontWeight: 600,
-                          }}
-                        >
-                          Executive Web Designer at LPC Advisors Pvt. Ltd.
-                        </Typography>
-                      </Box>
-                      <Box sx={{ textAlign: "end" }}>
-                        <Typography
-                          variant="h4"
-                          sx={{
-                            color: "#e6eef6",
-                            fontWeight: 700,
-                            textAlign: "end",
-                          }}
-                        >
-                          &nbsp;&nbsp;&nbsp;1 yr 10 M
-                        </Typography>
-                      </Box>
-                    </Box>
-
-                    <br />
-
-                    <Typography variant="h5">
-                      Experience in web development and frontend technologies,
-                      including HTML, CSS, <br /> JavaScript, and
-                      React.js.During this time, I worked on building responsive
-                      and <br /> user-friendly web interfaces that enhanced
-                      overall user experience.
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* Vertical Divider (only on md+ screens) */}
-                <Box
-                  sx={{
-                    display: { xs: "none", md: "flex" },
-                    alignSelf: "stretch",
-                  }}
-                >
-                  <Divider
-                    orientation="vertical"
-                    flexItem
-                    sx={{ borderColor: "gray" }}
-                  />
-                </Box>
-
-                {/* === Certificates Section === */}
-                <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Box sx={{ p: 2, color: "#9aa4b2", textAlign: "center" }}>
-                    <Typography
-                      variant="h4"
-                      sx={{ fontWeight: 650, mb: 1, color: "#e6eef6" }}
-                    >
-                      Certificates
-                    </Typography>
-
-                    <Box
-                      component="dl"
-                      sx={{ pl: 2, m: 0, textAlign: "start" }}
-                    >
-                      {/* Certificate 1 */}
-                      <Typography
-                        component="dt"
-                        sx={{ fontWeight: 600, fontSize: "20px" }}
-                      >
-                        <svg width="12" height="12">
-                          <circle
-                            cx="6"
-                            cy="6"
-                            r="5"
-                            fill="white"
-                            stroke="black"
-                            strokeWidth="1"
-                          />
-                        </svg>{" "}
-                        JAVA Full Stack Development,{" "}
-                        <span
-                          style={{ fontSize: "18px", fontWeight: "normal" }}
-                        >
-                          codekul institute, <br /> &nbsp;&nbsp; Kothrud
-                        </span>{" "}
-                        <Link>
-                          <OpenInNewIcon />
-                        </Link>
-                      </Typography>
-                      <Typography
-                        component="dd"
-                        sx={{ ml: 2, fontSize: "16px" }}
-                      >
-                        Covered backend with Java, Spring Boot, and frontend
-                        with React.
-                      </Typography>
-
-                      {/* Certificate 2 */}
-                      <Typography
-                        component="dt"
-                        sx={{ fontWeight: 600, fontSize: "20px", mt: 2 }}
-                      >
-                        <svg width="12" height="12">
-                          <circle
-                            cx="6"
-                            cy="6"
-                            r="5"
-                            fill="white"
-                            stroke="black"
-                            strokeWidth="1"
-                          />
-                        </svg>{" "}
-                        React Development, Udemy{" "}
-                        <Link>
-                          <OpenInNewIcon />
-                        </Link>
-                      </Typography>
-                      <Typography
-                        component="dd"
-                        sx={{ ml: 2, fontSize: "16px" }}
-                      >
-                        Focused on creating mobile-first layouts using HTML,
-                        CSS, and Flexbox/Grid.
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-
-      {/* About */}
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          gap: 4,
-        }}
-        id="about"
-      >
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ textAlign: "center", p: 4, width: "100%" }}>
-            <Typography
-              variant="h2"
-              gutterBottom
-              sx={{ fontWeight: 650, color: "#e6eef6" }}
-            >
-              About
-            </Typography>
-
-            <Box
-              sx={{
-                p: 4,
-                flexGrow: 1,
-                textAlign: "start",
-                borderRadius: "15px",
-                backgroundColor: "#9191910d", // optional background for visibility
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "flex-start",
-                  gap: 4,
-                }}
-              >
-                <Box
-                  sx={{
-                    flex: { xs: "1 1 100%", md: 1 },
-                    minWidth: 0,
-                    margin: "auto",
-                  }}
-                >
-                  <Box sx={{ p: 2, color: "#9aa4b2", width: "auto" }}>
-                    <Typography
-                      variant="h3"
-                      sx={{
-                        color: currentColor,
-                        fontWeight: 700,
-                        transition: "all 0.3s ease-in-out",
-                      }}
-                    >
-                      I'am Mayur Kumbhar
-                    </Typography>
-
-                    <Typography variant="h5" sx={{ mt: 2 }}>
-                      I’m a passionate Web Designer focused on creating
-                      engaging, responsive websites
-                    </Typography>
-                    <Typography variant="h5" sx={{ mt: 2 }}>
-                      that not only look great but perform flawlessly. With
-                      hands-on experience in modern frontend tools
-                    </Typography>
-
-                    <Typography variant="h5" sx={{ mt: 2 }}>
-                      like React and a strong eye for design, I bring ideas to
-                      life on the web.
-                    </Typography>
-
-                    {/* === Skills Section === */}
-                    <Box sx={{ mt: 6, textAlign: "center" }}>
-                      <Typography variant="h4" gutterBottom>
-                        Skills
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: 3,
-                          justifyContent: "center",
-                        }}
-                      >
-                        {logos.map((logo, index) => (
-                          <Box key={index}>
-                            <Box sx={{ textAlign: "center" }}>
-                              <img
-                                src={logo.src}
-                                alt={logo.alt}
-                                style={{
-                                  width: 80,
-                                  height: 80,
-                                  border: "1px solid #000000",
-                                  borderRadius: "15px",
-                                  objectFit: "contain",
-                                }}
-                              />
-                              <Typography variant="body1" sx={{ mt: 1 }}>
-                                {logo.name}
-                              </Typography>
-                            </Box>
-                          </Box>
-                        ))}
-                      </Box>
-                    </Box>
-                  </Box>
-                </Box>
-                <Box sx={{ flex: { xs: "1 1 100%", md: 1 }, minWidth: 0 }}>
-                  <Box
-                    component={motion.div}
-                    initial={{ opacity: 0, x: 60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    sx={{
-                      flex: { xs: "1 1 100%", md: 1 },
-                      minWidth: 0,
-                      position: "relative",
-                    }}
-                  >
-                    {/* Glow */}
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        width: "90%",
-                        height: "90%",
-                        background: "linear-gradient(135deg,#6ee7b7,#60a5fa)",
-                        filter: "blur(70px)",
-                        opacity: 0.2,
-                        top: "5%",
-                        left: "5%",
-                      }}
-                    />
-
-                    <Box
-                      component={motion.div}
-                      whileHover={{
-                        scale: 1.03,
-                        rotate: 1,
-                      }}
-                      sx={{
-                        position: "relative",
-                        zIndex: 1,
-                        borderRadius: 5,
-                        overflow: "hidden",
-                        border: "1px solid rgba(255,255,255,.15)",
-                      }}
-                    >
-                      <Box
-                        component="img"
-                        src={manImg}
-                        alt="Mayur Kumbhar"
-                        sx={{
-                          width: "100%",
-                          maxWidth: 550,
-                          display: "block",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-
-      {/* {"Contact Section"} */}
-      {/* CONTACT SECTION */}
-      <Box
-        id="contact"
-        sx={{
-          py: { xs: 8, md: 12 },
-          px: { xs: 2, md: 6 },
-          maxWidth: 1400,
-          mx: "auto",
-        }}
-      >
-        <Box sx={{ textAlign: "center", mb: 6 }}>
-          <Typography
-            sx={{
-              color: "#6ee7b7",
-              fontWeight: 700,
-              letterSpacing: 2,
-            }}
-          >
-            GET IN TOUCH
-          </Typography>
-
-          <Typography
-            variant="h2"
-            sx={{
-              color: "#fff",
-              fontWeight: 800,
-              mt: 1,
-            }}
-          >
-            Let's Build Something Amazing
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            display: "grid",
-
-            gridTemplateColumns: {
-              xs: "1fr",
-              md: "1fr 1fr",
-            },
-
-            gap: 0,
-
-            borderRadius: 5,
-            overflow: "hidden",
-
-            border: "1px solid rgba(255,255,255,.1)",
-
-            background: "rgba(255,255,255,.03)",
-
-            backdropFilter: "blur(20px)",
-          }}
-        >
-          {/* LEFT SIDE - CONTACT FORM */}
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            sx={{
-              width: "100%",
-              p: {
-                xs: 3,
-                md: 6,
-              },
-
-              borderRight: {
-                md: "1px solid rgba(255,255,255,.08)",
-              },
-            }}
-          >
-            <Typography
-              variant="h4"
-              sx={{
-                color: "#fff",
-                fontWeight: 700,
-                mb: 1,
-              }}
-            >
-              Send Me a Message
-            </Typography>
-
-            <Typography
-              sx={{
-                color: "#9aa4b2",
-                mb: 4,
-              }}
-            >
-              Have a project in mind? Let's discuss how we can bring your ideas
-              to life.
-            </Typography>
-
-            <ContactForm />
-          </Box>
-
-          {/* RIGHT SIDE - MAP + CONTACT INFO */}
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            sx={{
-              width: "100%",
-              minHeight: 600,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {/* MAP */}
-            <Box
-              sx={{
-                height: {
-                  xs: 300,
-                  md: 400,
-                },
-                width: "100%",
-              }}
-            >
-              <iframe
-                title="Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0201333834435!2d-122.4218194846819!3d37.77492977975959"
-                width="100%"
-                height="100%"
-                style={{
-                  border: 0,
-                  display: "block",
-                }}
-                loading="lazy"
-                allowFullScreen
-              />
-            </Box>
-
-            {/* CONTACT DETAILS */}
-            <Box
-              sx={{
-                flex: 1,
-                p: {
-                  xs: 3,
-                  md: 5,
-                },
-                background: "rgba(255,255,255,.025)",
-              }}
-            >
-              <Typography
-                variant="h5"
-                sx={{
-                  color: "#fff",
                   fontWeight: 700,
                   mb: 3,
                 }}
               >
-                Contact Information
+                FRONTEND DEVELOPER / WEB DESIGNER
+              </Typography>
+
+              <Typography
+                component="h1"
+                sx={{
+                  fontSize: {
+                    xs: "4rem",
+                    sm: "6rem",
+                    md: "9rem",
+                    lg: "11rem",
+                  },
+                  fontWeight: 900,
+                  lineHeight: 0.82,
+                  letterSpacing: "-0.07em",
+                  maxWidth: 1250,
+                  mb: 5,
+                }}
+              >
+                BUILDING
+                <br />
+                DIGITAL
+                <br />
+                <span style={{ color: theme.accent }}>
+                  EXPERIENCES.
+                </span>
               </Typography>
 
               <Box
                 sx={{
-                  display: "flex",
-                  gap: 2,
-                  mb: 3,
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    md: "1fr 1fr",
+                  },
+                  gap: 4,
+                  alignItems: "end",
+                  maxWidth: 1050,
                 }}
               >
-                <EmailIcon
+                <Typography
                   sx={{
-                    color: "#6ee7b7",
+                    color: theme.muted,
+                    fontSize: { xs: 17, md: 21 },
+                    lineHeight: 1.7,
+                    maxWidth: 560,
                   }}
-                />
+                >
+                  I'm Mayur Kumbhar, a passionate Frontend Developer and Web
+                  Designer creating responsive, modern and high-performance web
+                  experiences using React.js and modern technologies.
+                </Typography>
 
-                <Box>
-                  <Typography
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 2,
+                    flexWrap: "wrap",
+                    justifyContent: {
+                      xs: "flex-start",
+                      md: "flex-end",
+                    },
+                  }}
+                >
+                  <Button
+                    href="#work"
+                    endIcon={<ArrowOutwardIcon />}
                     sx={{
-                      color: "#9aa4b2",
-                      fontSize: 14,
+                      background: theme.accent,
+                      color: "#000",
+                      borderRadius: 0,
+                      px: 3,
+                      py: 1.5,
+                      fontWeight: 800,
+                      "&:hover": {
+                        background: "#fff",
+                      },
                     }}
                   >
-                    EMAIL
-                  </Typography>
+                    See My Work
+                  </Button>
 
-                  <Typography
+                  <Button
+                    href="#contact"
+                    variant="outlined"
                     sx={{
-                      color: "#fff",
+                      color: theme.text,
+                      borderColor: theme.border,
+                      borderRadius: 0,
+                      px: 3,
+                      py: 1.5,
+                      "&:hover": {
+                        borderColor: theme.accent,
+                        color: theme.accent,
+                      },
                     }}
                   >
-                    your-email@gmail.com
-                  </Typography>
+                    Start a Project
+                  </Button>
                 </Box>
               </Box>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                }}
-              >
-                <LocationOnIcon
-                  sx={{
-                    color: "#60a5fa",
-                  }}
-                />
-
-                <Box>
-                  <Typography
-                    sx={{
-                      color: "#9aa4b2",
-                      fontSize: 14,
-                    }}
-                  >
-                    LOCATION
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      color: "#fff",
-                    }}
-                  >
-                    Pune, Maharashtra, India
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
+            </MotionBox>
           </Box>
         </Box>
-      </Box>
 
-      {/* {"Footer"} */} 
-      <Box
-        maxWidth="xs"
-        sx={{
-          mt: "auto",
-          py: 3,
-          px: 4,
-          color: "#9aa4b2",
-          fontSize: 15,
-          textAlign: "center",
-        }}
-      >
+        {/* ========================= */}
+        {/* ABOUT */}
+        {/* ========================= */}
+
         <Box
+          id="about"
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            justifyContent: "space-between",
-            alignItems: { xs: "flex-start", md: "center" },
-            gap: 4,
-            px: 2,
-            py: 4,
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 18 },
+            borderTop: `1px solid ${theme.border}`,
           }}
         >
-          {/* Left Side – Text */}
-          <Box sx={{ flex: { md: "0 0 66.66%" }, alignContent: "flex-start" }}>
-            {" "}
-            {/* lg=8/12 */}
-            <Typography variant="body2">
-              © {new Date().getFullYear()} — Crafted with care @mayur_kumbhar.
-            </Typography>
-          </Box>
-
-          {/* Right Side – Buttons */}
-          <Box
+          <MotionBox
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={sectionAnimation}
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: 2,
-              flex: { md: "0 0 33.33%" }, // lg=4/12
-              alignContent: "flex-end",
+              maxWidth: 1500,
+              mx: "auto",
             }}
           >
-            {BtnTxt.map((element, index) => (
-              <Button
-                key={index}
-                variant="outlined"
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontSize: 14,
+                fontWeight: 700,
+                mb: 3,
+              }}
+            >
+              [ ABOUT ME ]
+            </Typography>
+
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  md: "1.2fr 0.8fr",
+                },
+                gap: { xs: 6, md: 12 },
+                alignItems: "center",
+              }}
+            >
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: {
+                      xs: "2.8rem",
+                      md: "5rem",
+                    },
+                    fontWeight: 800,
+                    lineHeight: 1,
+                    letterSpacing: "-0.05em",
+                    mb: 4,
+                  }}
+                >
+                  I turn ideas into
+                  <br />
+                  <span style={{ color: theme.accent }}>
+                    modern digital products.
+                  </span>
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    fontSize: 18,
+                    lineHeight: 1.8,
+                    maxWidth: 700,
+                  }}
+                >
+                  I am a Computer Science & Engineering graduate and currently
+                  working as an Executive Web Designer. I have hands-on
+                  experience in building responsive interfaces, modern web
+                  applications and user-friendly digital experiences.
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    fontSize: 18,
+                    lineHeight: 1.8,
+                    mt: 2,
+                    maxWidth: 700,
+                  }}
+                >
+                  My primary focus is frontend development with React.js, but I
+                  also work with backend technologies such as Node.js, Express,
+                  Java Spring Boot and databases including MySQL and MongoDB.
+                </Typography>
+              </Box>
+
+              <MotionBox
+                whileHover={{
+                  scale: 1.02,
+                }}
                 sx={{
-                  borderRadius: "10px",
-                  color: "#9aa4b2",
-                  borderColor: "rgba(255,255,255,0.06)",
-                  fontWeight: 600,
-                  "&:hover": {
-                    background: "#e6eef6",
-                    color: "#071029",
+                  position: "relative",
+                  overflow: "hidden",
+                  border: `1px solid ${theme.border}`,
+                  aspectRatio: "4/5",
+                  maxWidth: 500,
+                  justifySelf: {
+                    xs: "center",
+                    md: "end",
                   },
                 }}
               >
-                {element}
-              </Button>
+                <Box
+                  component="img"
+                  src={manImg}
+                  alt="Mayur Kumbhar"
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    filter: "grayscale(20%)",
+                  }}
+                />
+
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
+                    p: 2,
+                    background:
+                      "linear-gradient(transparent, rgba(0,0,0,.9))",
+                    pt: 8,
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: theme.accent,
+                      fontWeight: 700,
+                    }}
+                  >
+                    MAYUR KUMBHAR
+                  </Typography>
+                </Box>
+              </MotionBox>
+            </Box>
+          </MotionBox>
+        </Box>
+
+        {/* ========================= */}
+        {/* SERVICES */}
+        {/* ========================= */}
+
+        <Box
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 16 },
+            borderTop: `1px solid ${theme.border}`,
+          }}
+        >
+          <Box sx={{ maxWidth: 1500, mx: "auto" }}>
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontSize: 14,
+                fontWeight: 700,
+                mb: 2,
+              }}
+            >
+              [ WHAT I DO ]
+            </Typography>
+
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "3rem",
+                  md: "6rem",
+                },
+                fontWeight: 900,
+                letterSpacing: "-0.06em",
+                lineHeight: 0.95,
+                mb: 8,
+              }}
+            >
+              WHAT I
+              <br />
+              <span style={{ color: theme.accent }}>
+                BRING.
+              </span>
+            </Typography>
+
+            {services.map((service) => (
+              <MotionBox
+                key={service.number}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{
+                  x: 12,
+                }}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    md: "120px 1fr 1.5fr",
+                  },
+                  gap: 4,
+                  py: 5,
+                  borderTop: `1px solid ${theme.border}`,
+                  cursor: "default",
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: theme.accent,
+                    fontWeight: 800,
+                  }}
+                >
+                  [{service.number}]
+                </Typography>
+
+                <Box>
+                  <Box
+                    sx={{
+                      color: theme.accent,
+                      mb: 2,
+                    }}
+                  >
+                    {service.icon}
+                  </Box>
+
+                  <Typography
+                    sx={{
+                      fontSize: {
+                        xs: 28,
+                        md: 38,
+                      },
+                      fontWeight: 800,
+                    }}
+                  >
+                    {service.title}
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Typography
+                    sx={{
+                      color: theme.muted,
+                      fontSize: 17,
+                      lineHeight: 1.7,
+                      mb: 3,
+                    }}
+                  >
+                    {service.description}
+                  </Typography>
+
+                  <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                    {service.tags.map((tag) => (
+                      <Chip
+                        key={tag}
+                        label={tag}
+                        sx={{
+                          color: theme.text,
+                          background: "transparent",
+                          border: `1px solid ${theme.border}`,
+                          borderRadius: 0,
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              </MotionBox>
             ))}
           </Box>
         </Box>
+
+        {/* ========================= */}
+        {/* SKILLS */}
+        {/* ========================= */}
+
+        <Box
+          id="skills"
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 16 },
+            background: "#0d0d0d",
+          }}
+        >
+          <Box sx={{ maxWidth: 1500, mx: "auto" }}>
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontWeight: 700,
+                mb: 3,
+              }}
+            >
+              [ TECH STACK ]
+            </Typography>
+
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "3rem",
+                  md: "6rem",
+                },
+                fontWeight: 900,
+                letterSpacing: "-0.06em",
+                mb: 7,
+              }}
+            >
+              TOOLS I USE
+              <span style={{ color: theme.accent }}>.</span>
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1.5,
+              }}
+            >
+              {skills.map((skill, index) => (
+                <MotionBox
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    delay: index * 0.04,
+                  }}
+                  whileHover={{
+                    y: -5,
+                    backgroundColor: theme.accent,
+                    color: "#000",
+                  }}
+                  sx={{
+                    px: { xs: 2, md: 3 },
+                    py: 1.5,
+                    border: `1px solid ${theme.border}`,
+                    fontWeight: 700,
+                    cursor: "default",
+                  }}
+                >
+                  {skill}
+                </MotionBox>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+
+        {/* ========================= */}
+        {/* PROJECTS */}
+        {/* ========================= */}
+
+        <Box
+          id="work"
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 18 },
+          }}
+        >
+          <Box sx={{ maxWidth: 1500, mx: "auto" }}>
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontWeight: 700,
+                mb: 2,
+              }}
+            >
+              [ SELECTED WORK ]
+            </Typography>
+
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "3rem",
+                  md: "6rem",
+                },
+                fontWeight: 900,
+                letterSpacing: "-0.06em",
+                lineHeight: 0.95,
+                mb: 10,
+              }}
+            >
+              BUILT TO
+              <br />
+              <span style={{ color: theme.accent }}>
+                PERFORM.
+              </span>
+            </Typography>
+
+            {projects.map((project, index) => (
+              <MotionBox
+                key={project.number}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    md: "0.8fr 1.2fr",
+                  },
+                  gap: { xs: 3, md: 7 },
+                  py: { xs: 5, md: 8 },
+                  borderTop: `1px solid ${theme.border}`,
+                }}
+              >
+                <Box
+                  sx={{
+                    position: "relative",
+                    overflow: "hidden",
+                    aspectRatio: "16/10",
+                    border: `1px solid ${theme.border}`,
+                  }}
+                >
+                  <MotionBox
+                    component="img"
+                    src={project.image}
+                    alt={project.title}
+                    whileHover={{
+                      scale: 1.08,
+                    }}
+                    transition={{
+                      duration: 0.6,
+                    }}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box>
+                    <Typography
+                      sx={{
+                        color: theme.accent,
+                        fontWeight: 700,
+                        mb: 2,
+                      }}
+                    >
+                      ({project.number}) — {project.category}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: 35,
+                          md: 65,
+                        },
+                        lineHeight: 1,
+                        fontWeight: 900,
+                        letterSpacing: "-0.05em",
+                        mb: 3,
+                      }}
+                    >
+                      {project.title}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        color: theme.muted,
+                        fontSize: 17,
+                        lineHeight: 1.7,
+                        maxWidth: 650,
+                        mb: 3,
+                      }}
+                    >
+                      {project.description}
+                    </Typography>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 1,
+                      }}
+                    >
+                      {project.tech.map((tech) => (
+                        <Typography
+                          key={tech}
+                          sx={{
+                            fontSize: 13,
+                            color: theme.muted,
+                            border: `1px solid ${theme.border}`,
+                            px: 1.5,
+                            py: 0.7,
+                          }}
+                        >
+                          {tech}
+                        </Typography>
+                      ))}
+                    </Box>
+                  </Box>
+
+                  <Button
+                    href={project.link}
+                    target={
+                      project.link.startsWith("http")
+                        ? "_blank"
+                        : undefined
+                    }
+                    endIcon={<ArrowOutwardIcon />}
+                    sx={{
+                      mt: 5,
+                      alignSelf: "flex-start",
+                      color: theme.text,
+                      borderBottom: `1px solid ${theme.accent}`,
+                      borderRadius: 0,
+                      px: 0,
+                      pb: 1,
+                      "&:hover": {
+                        color: theme.accent,
+                        background: "transparent",
+                      },
+                    }}
+                  >
+                    View Project
+                  </Button>
+                </Box>
+              </MotionBox>
+            ))}
+          </Box>
+        </Box>
+
+        {/* ========================= */}
+        {/* EXPERIENCE */}
+        {/* ========================= */}
+
+        <Box
+          id="experience"
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 16 },
+            background: "#0d0d0d",
+          }}
+        >
+          <MotionBox
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={sectionAnimation}
+            sx={{
+              maxWidth: 1500,
+              mx: "auto",
+            }}
+          >
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontWeight: 700,
+                mb: 3,
+              }}
+            >
+              [ EXPERIENCE ]
+            </Typography>
+
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  md: "0.8fr 1.2fr",
+                },
+                gap: 5,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: {
+                    xs: "3rem",
+                    md: "5.5rem",
+                  },
+                  fontWeight: 900,
+                  lineHeight: 0.95,
+                  letterSpacing: "-0.06em",
+                }}
+              >
+                MAKING IDEAS
+                <br />
+                <span style={{ color: theme.accent }}>
+                  REAL.
+                </span>
+              </Typography>
+
+              <Box
+                sx={{
+                  borderTop: `1px solid ${theme.border}`,
+                  pt: 4,
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    gap: 2,
+                    mb: 3,
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: {
+                        xs: 25,
+                        md: 35,
+                      },
+                      fontWeight: 800,
+                    }}
+                  >
+                    Executive Web Designer
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      color: theme.accent,
+                      fontWeight: 700,
+                    }}
+                  >
+                    2+ YEARS
+                  </Typography>
+                </Box>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    fontSize: 18,
+                    lineHeight: 1.8,
+                  }}
+                >
+                  At LPC Advisors Pvt. Ltd., I work on web design and frontend
+                  development, building responsive interfaces and improving
+                  digital experiences. My work includes HTML, CSS, JavaScript,
+                  React.js and modern UI development practices.
+                </Typography>
+              </Box>
+            </Box>
+          </MotionBox>
+        </Box>
+
+        {/* ========================= */}
+        {/* CUSTOM CONTACT SECTION */}
+        {/* ========================= */}
+
+        <Box
+          id="contact"
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 18 },
+            position: "relative",
+          }}
+        >
+          <Box
+            sx={{
+              maxWidth: 1500,
+              mx: "auto",
+            }}
+          >
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontWeight: 700,
+                mb: 3,
+              }}
+            >
+              [ LET'S TALK ]
+            </Typography>
+
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "3.5rem",
+                  md: "8rem",
+                },
+                fontWeight: 900,
+                lineHeight: 0.85,
+                letterSpacing: "-0.07em",
+                mb: 8,
+              }}
+            >
+              READY TO
+              <br />
+              BUILD YOUR
+              <br />
+              <span style={{ color: theme.accent }}>
+                NEXT IDEA?
+              </span>
+            </Typography>
+
+            {/* EXACT 50 / 50 CONTACT LAYOUT */}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  md: "1fr 1fr",
+                },
+                border: `1px solid ${theme.border}`,
+              }}
+            >
+              {/* LEFT SIDE */}
+              <MotionBox
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                sx={{
+                  p: {
+                    xs: 3,
+                    md: 6,
+                  },
+                  borderRight: {
+                    md: `1px solid ${theme.border}`,
+                  },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: {
+                      xs: 30,
+                      md: 45,
+                    },
+                    fontWeight: 800,
+                    mb: 2,
+                  }}
+                >
+                  Start a conversation.
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    fontSize: 17,
+                    lineHeight: 1.7,
+                    mb: 5,
+                  }}
+                >
+                  Have a project, job opportunity or collaboration in mind?
+                  Send me a message and I will get back to you.
+                </Typography>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 4,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 2,
+                      alignItems: "center",
+                    }}
+                  >
+                    <EmailIcon sx={{ color: theme.accent }} />
+
+                    <Box>
+                      <Typography
+                        sx={{
+                          color: theme.muted,
+                          fontSize: 12,
+                          letterSpacing: 1,
+                        }}
+                      >
+                        EMAIL
+                      </Typography>
+
+                      <Typography>
+                        mayur.kumbhar@example.com
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 2,
+                      alignItems: "center",
+                    }}
+                  >
+                    <LocationOnIcon sx={{ color: theme.accent }} />
+
+                    <Box>
+                      <Typography
+                        sx={{
+                          color: theme.muted,
+                          fontSize: 12,
+                          letterSpacing: 1,
+                        }}
+                      >
+                        LOCATION
+                      </Typography>
+
+                      <Typography>
+                        Bhuinj, Satara, Maharashtra, India
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 2,
+                      mt: 2,
+                    }}
+                  >
+                    <IconButton
+                      component="a"
+                      href="https://www.linkedin.com/in/mayur-kumbhar-b27523201"
+                      target="_blank"
+                      sx={{
+                        color: theme.text,
+                        border: `1px solid ${theme.border}`,
+                        borderRadius: 0,
+                        "&:hover": {
+                          color: "#000",
+                          background: theme.accent,
+                        },
+                      }}
+                    >
+                      <LinkedInIcon />
+                    </IconButton>
+
+                    <IconButton
+                      component="a"
+                      href="https://github.com/Mayur-kumbhar09"
+                      target="_blank"
+                      sx={{
+                        color: theme.text,
+                        border: `1px solid ${theme.border}`,
+                        borderRadius: 0,
+                        "&:hover": {
+                          color: "#000",
+                          background: theme.accent,
+                        },
+                      }}
+                    >
+                      <GitHubIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </MotionBox>
+
+              {/* RIGHT SIDE FORM */}
+              <MotionBox
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                sx={{
+                  p: {
+                    xs: 3,
+                    md: 6,
+                  },
+                  background: "#0d0d0d",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: {
+                      xs: 30,
+                      md: 45,
+                    },
+                    fontWeight: 800,
+                    mb: 4,
+                  }}
+                >
+                  Tell me about it.
+                </Typography>
+
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2.5,
+                  }}
+                >
+                  <TextField
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    label="Your Name"
+                    fullWidth
+                    InputLabelProps={{
+                      sx: {
+                        color: theme.muted,
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        color: theme.text,
+                      },
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                        "& fieldset": {
+                          borderColor: theme.border,
+                        },
+                        "&:hover fieldset": {
+                          borderColor: theme.accent,
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: theme.accent,
+                        },
+                      },
+                    }}
+                  />
+
+                  <TextField
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    type="email"
+                    label="Email Address"
+                    fullWidth
+                    InputLabelProps={{
+                      sx: {
+                        color: theme.muted,
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        color: theme.text,
+                      },
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                        "& fieldset": {
+                          borderColor: theme.border,
+                        },
+                        "&:hover fieldset": {
+                          borderColor: theme.accent,
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: theme.accent,
+                        },
+                      },
+                    }}
+                  />
+
+                  <TextField
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    label="What's this about?"
+                    fullWidth
+                    InputLabelProps={{
+                      sx: {
+                        color: theme.muted,
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        color: theme.text,
+                      },
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                        "& fieldset": {
+                          borderColor: theme.border,
+                        },
+                        "&:hover fieldset": {
+                          borderColor: theme.accent,
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: theme.accent,
+                        },
+                      },
+                    }}
+                  />
+
+                  <TextField
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    multiline
+                    rows={5}
+                    label="Tell me about your project..."
+                    fullWidth
+                    InputLabelProps={{
+                      sx: {
+                        color: theme.muted,
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        color: theme.text,
+                      },
+                    }}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 0,
+                        "& fieldset": {
+                          borderColor: theme.border,
+                        },
+                        "&:hover fieldset": {
+                          borderColor: theme.accent,
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: theme.accent,
+                        },
+                      },
+                    }}
+                  />
+
+                  <Button
+                    type="submit"
+                    endIcon={<SendIcon />}
+                    sx={{
+                      mt: 1,
+                      alignSelf: "flex-start",
+                      background: theme.accent,
+                      color: "#000",
+                      borderRadius: 0,
+                      px: 4,
+                      py: 1.5,
+                      fontWeight: 800,
+                      "&:hover": {
+                        background: "#fff",
+                      },
+                    }}
+                  >
+                    Send Message
+                  </Button>
+                </Box>
+              </MotionBox>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* ========================= */}
+        {/* FOOTER */}
+        {/* ========================= */}
+
+        <Box
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: 4,
+            borderTop: `1px solid ${theme.border}`,
+          }}
+        >
+          <Box
+            sx={{
+              maxWidth: 1500,
+              mx: "auto",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: 2,
+            }}
+          >
+            <Typography
+              sx={{
+                color: theme.muted,
+                fontSize: 14,
+              }}
+            >
+              © {new Date().getFullYear()} Mayur Kumbhar. Built with React.
+            </Typography>
+
+            <Box sx={{ display: "flex", gap: 3 }}>
+              <Typography
+                component="a"
+                href="https://github.com/Mayur-kumbhar09"
+                target="_blank"
+                sx={{
+                  color: theme.muted,
+                  textDecoration: "none",
+                  fontSize: 14,
+                  "&:hover": {
+                    color: theme.accent,
+                  },
+                }}
+              >
+                GitHub
+              </Typography>
+
+              <Typography
+                component="a"
+                href="https://www.linkedin.com/in/mayur-kumbhar-b27523201"
+                target="_blank"
+                sx={{
+                  color: theme.muted,
+                  textDecoration: "none",
+                  fontSize: 14,
+                  "&:hover": {
+                    color: theme.accent,
+                  },
+                }}
+              >
+                LinkedIn
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+
+        <Snackbar
+          open={success}
+          autoHideDuration={4000}
+          onClose={() => setSuccess(false)}
+        >
+          <Alert
+            severity="success"
+            variant="filled"
+            onClose={() => setSuccess(false)}
+          >
+            Message sent successfully! I'll get back to you soon.
+          </Alert>
+        </Snackbar>
       </Box>
     </>
   );
