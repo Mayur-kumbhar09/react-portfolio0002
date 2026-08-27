@@ -183,6 +183,8 @@ export default function Portfolio() {
   return (
     <>
     <Typography>Hello i am here </Typography>
+    <Typography>Hello i am here </Typography>
+    <Typography>Hello i am here </Typography>
       <AnimatedBackground />
       <Box
         sx={{
