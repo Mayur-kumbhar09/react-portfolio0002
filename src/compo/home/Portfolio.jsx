@@ -1545,7 +1545,7 @@ export default function Portfolio() {
             <Typography
               sx={{
                 fontSize: {
-                  xs: "3rem",
+                  xs: "2.5rem",
                   md: "6rem",
                 },
                 fontWeight: 900,
