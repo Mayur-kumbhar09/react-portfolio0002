@@ -35,11 +35,18 @@ import {
   FaNodeJs,
   FaHtml5,
   FaCss3Alt,
+  FaJava,
+  FaPython,
   FaGitAlt,
 } from "react-icons/fa";
-import { SiJavascript, SiMongodb } from "react-icons/si";
-import { SiTypescript } from "react-icons/si";
-import { FaFigma } from "react-icons/fa";
+
+import {
+  SiJavascript,
+  SiMongodb,
+  SiMysql,
+  SiExpress,
+  SiSpring,
+} from "react-icons/si";
 
 const MotionBox = motion(Box);
 
