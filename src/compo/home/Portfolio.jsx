@@ -364,34 +364,7 @@ const SkillsOrbit = () => {
       ))}
 
       {/* center logo */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: { xs: 80, md: 90 },
-          height: { xs: 80, md: 90 },
-          borderRadius: "50%",
-          background: "#c0c0c0",
-          border: `1px solid ${theme.border}`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 3,
-        }}
-      >
-        <Typography
-          sx={{
-            fontWeight: 900,
-            fontSize: { xs: 20, md: 24 },
-            color: "#000",
-            letterSpacing: "-0.03em",
-          }}
-        >
-          MK
-        </Typography>
-      </Box>
+    
 
       {/* rotating rings, each independent speed */}
       {orbitRings.map((ring, ringIndex) => (
