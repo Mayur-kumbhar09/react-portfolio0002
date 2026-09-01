@@ -348,7 +348,7 @@ const SkillsBentoGrid = () => {
       }}
     >
       {skillsGridItems.map((skill) => {
-        const isBig = skill.area.startsWith("big");
+        const isBig = skill.area?.startsWith("big");
 
         return (
           <MotionBox
@@ -1510,7 +1510,7 @@ export default function Portfolio() {
                   <Button
                     href={project.link}
                     target={
-                      project.link.startsWith("http") ? "_blank" : undefined
+                      project.link?.startsWith("http") ? "_blank" : undefined
                     }
                     endIcon={<ArrowOutwardIcon />}
                     sx={{
