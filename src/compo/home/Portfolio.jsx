@@ -370,10 +370,10 @@ const SkillsOrbit = () => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: { xs: 90, md: 120 },
-          height: { xs: 90, md: 120 },
+          width: { xs: 80, md: 90 },
+          height: { xs: 80, md: 90 },
           borderRadius: "50%",
-          background: "#000",
+          background: "#c0c0c0",
           border: `1px solid ${theme.border}`,
           display: "flex",
           alignItems: "center",
@@ -385,7 +385,7 @@ const SkillsOrbit = () => {
           sx={{
             fontWeight: 900,
             fontSize: { xs: 20, md: 24 },
-            color: theme.text,
+            color: "#000",
             letterSpacing: "-0.03em",
           }}
         >
