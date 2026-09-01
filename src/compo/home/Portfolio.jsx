@@ -610,7 +610,7 @@ export default function Portfolio() {
                   component="h1"
                   sx={{
                     fontSize: {
-                      xs: "4.2rem",
+                      xs: "3.8rem",
                       sm: "6rem",
                       md: "9rem",
                       lg: "11rem",
