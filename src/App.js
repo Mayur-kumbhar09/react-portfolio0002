@@ -68,13 +68,13 @@ const App = () => {
         <Button
           onClick={scrollToTop}
           sx={{
-            left: "90%",
-            top: "96.8%",
+            left: "95%",
+            top: "98.8%",
             position: "absolute",
             width: "",
             background: "#f2f2f2",
             color: "#071029",
-            fontSize: "3.875rem",
+            fontSize: "3.675rem",
           }}
         >
           <VerticalAlignTopIcon />
