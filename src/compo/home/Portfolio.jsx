@@ -210,6 +210,65 @@ const staggerContainer = {
   },
 };
 
+// =========================================================
+// INLINE SVG MESH / WAVE GRADIENT BACKGROUND (Hero section)
+// Dark abstract mesh with soft motion-blur glow, in brand colors
+// =========================================================
+const HeroMeshBackground = () => (
+  <Box
+    component="svg"
+    viewBox="0 0 1920 1080"
+    preserveAspectRatio="xMidYMid slice"
+    sx={{
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      zIndex: 0,
+    }}
+  >
+    <defs>
+      <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#b7ff3c" stopOpacity="0.35" />
+        <stop offset="60%" stopColor="#b7ff3c" stopOpacity="0.08" />
+        <stop offset="100%" stopColor="#b7ff3c" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#3cffb7" stopOpacity="0.22" />
+        <stop offset="60%" stopColor="#3cffb7" stopOpacity="0.05" />
+        <stop offset="100%" stopColor="#3cffb7" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="glow3" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#b7ff3c" stopOpacity="0.18" />
+        <stop offset="70%" stopColor="#b7ff3c" stopOpacity="0.03" />
+        <stop offset="100%" stopColor="#b7ff3c" stopOpacity="0" />
+      </radialGradient>
+      <linearGradient id="base" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#090909" />
+        <stop offset="100%" stopColor="#0d0d0d" />
+      </linearGradient>
+      <filter id="blurHeavy" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="90" />
+      </filter>
+      <filter id="blurMed" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="60" />
+      </filter>
+    </defs>
+
+    <rect width="1920" height="1080" fill="url(#base)" />
+
+    <ellipse cx="1500" cy="250" rx="520" ry="420" fill="url(#glow1)" filter="url(#blurHeavy)" />
+    <ellipse cx="250" cy="850" rx="480" ry="380" fill="url(#glow2)" filter="url(#blurHeavy)" />
+    <ellipse cx="1000" cy="950" rx="600" ry="300" fill="url(#glow3)" filter="url(#blurMed)" />
+    <ellipse cx="1750" cy="900" rx="350" ry="300" fill="url(#glow1)" filter="url(#blurMed)" />
+
+    <g opacity="0.05" stroke="#ffffff" strokeWidth="1">
+      <line x1="0" y1="0" x2="1920" y2="1080" />
+      <line x1="1920" y1="0" x2="0" y2="1080" />
+    </g>
+  </Box>
+);
+
 export default function Portfolio() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -234,7 +293,9 @@ export default function Portfolio() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("Contact form:", formData);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Contact form:", formData);
+    }
 
     /*
       CONNECT YOUR FORM HERE
@@ -476,6 +537,9 @@ export default function Portfolio() {
             overflow: "hidden",
           }}
         >
+          {/* Inline SVG mesh/wave gradient background */}
+          <HeroMeshBackground />
+
           <Box
             sx={{
               position: "absolute",
@@ -1233,6 +1297,8 @@ export default function Portfolio() {
                     component="img"
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
                     whileHover={{
                       scale: 1.08,
                     }}
@@ -1751,6 +1817,7 @@ export default function Portfolio() {
                       component="a"
                       href="https://www.linkedin.com/in/mayur-kumbhar-b27523201"
                       target="_blank"
+                      aria-label="LinkedIn profile"
                       sx={{
                         color: theme.text,
                         border: `1px solid ${theme.border}`,
@@ -1768,6 +1835,7 @@ export default function Portfolio() {
                       component="a"
                       href="https://github.com/Mayur-kumbhar09"
                       target="_blank"
+                      aria-label="GitHub profile"
                       sx={{
                         color: theme.text,
                         border: `1px solid ${theme.border}`,
