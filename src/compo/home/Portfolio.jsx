@@ -194,35 +194,21 @@ const projects = [
     link: "#",
   },
 ];
-const orbitRings = [
-  {
-    radius: 15,
-    duration: 18,
-    skills: [
-      { name: "React", icon: <FaReact />, color: "#61DAFB" },
-      { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
-    ],
-  },
-  {
-    radius: 30,
-    duration: 26,
-    skills: [
-      { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
-      { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
-      { name: "Figma", icon: <FaFigma />, color: "#F24E1E" },
-    ],
-  },
-  {
-    radius: 45,
-    duration: 34,
-    skills: [
-      { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
-      { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
-      { name: "Node.js", icon: <FaNodeJs />, color: "#3C873A" },
-      { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
-    ],
-  },
+const skillsGridItems = [
+  { name: "React", icon: <FaReact />, color: "#61DAFB" },
+  { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
+  { name: "Node.js", icon: <FaNodeJs />, color: "#3C873A" },
+  { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
+  { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
+  { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
+  { name: "MySQL", icon: <SiMysql />, color: "#4479A1" },
+  { name: "Java", icon: <FaJava />, color: "#EA2D2E" },
+  { name: "Python", icon: <FaPython />, color: "#3776AB" },
+  { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
+  { name: "Express", icon: <SiExpress />, color: "#000000" },
+  { name: "Spring Boot", icon: <SiSpring />, color: "#6DB33F" },
 ];
+
 
 const fadeUp = {
   hidden: {
@@ -334,93 +320,85 @@ const HeroMeshBackground = () => (
     </g>
   </Box>
 );
-const SkillsOrbit = () => {
+const SkillsBentoGrid = () => {
+  // First item selected by default, like the reference image
+  const [selected, setSelected] = useState(skillsGridItems[0].name);
+
   return (
     <Box
       sx={{
-        position: "relative",
-        width: "100%",
-        maxWidth: 640,
-        aspectRatio: "1 / 1",
+        display: "grid",
+        gridTemplateColumns: {
+          xs: "repeat(3, 1fr)",
+          sm: "repeat(4, 1fr)",
+          md: "repeat(5, 1fr)",
+        },
+        gridAutoRows: { xs: 90, md: 120 },
+        gap: { xs: 1.5, md: 2 },
+        maxWidth: 900,
         mx: "auto",
-        my: { xs: 8, md: 10 },
       }}
     >
-      {/* dashed guide rings */}
-      {orbitRings.map((ring) => (
-        <Box
-          key={`ring-${ring.radius}`}
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: `${ring.radius * 2}%`,
-            height: `${ring.radius * 2}%`,
-            transform: "translate(-50%, -50%)",
-            borderRadius: "50%",
-            border: `1px dashed ${theme.border}`,
-          }}
-        />
-      ))}
+      {skillsGridItems.map((skill) => {
+        const isSelected = selected === skill.name;
 
-      {/* center logo */}
-    
+        return (
+          <MotionBox
+            key={skill.name}
+            layout
+            onClick={() => setSelected(skill.name)}
+            transition={{
+              layout: { type: "spring", stiffness: 260, damping: 26 },
+            }}
+            whileTap={{ scale: 0.96 }}
+            sx={{
+              gridColumn: isSelected ? "span 2" : "span 1",
+              gridRow: isSelected ? "span 2" : "span 1",
+              background: "#f4f4f4",
+              borderRadius: { xs: 3, md: 4 },
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              cursor: "pointer",
+              overflow: "hidden",
+              boxShadow: isSelected
+                ? "0 12px 30px rgba(0,0,0,0.35)"
+                : "0 4px 12px rgba(0,0,0,0.15)",
+            }}
+          >
+            <Box
+              component={motion.div}
+              layout
+              sx={{
+                fontSize: isSelected ? { xs: 44, md: 64 } : { xs: 22, md: 30 },
+                color: skill.color,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {skill.icon}
+            </Box>
 
-      {/* rotating rings, each independent speed */}
-      {orbitRings.map((ring, ringIndex) => (
-        <MotionBox
-          key={`spin-${ring.radius}`}
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: ring.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          sx={{ position: "absolute", inset: 0 }}
-        >
-          {ring.skills.map((skill, index) => {
-            const angle =
-              (index / ring.skills.length) * 2 * Math.PI +
-              (ringIndex * Math.PI) / 6; // offsets rings so icons don't align
-            const x = 50 + ring.radius * Math.cos(angle);
-            const y = 50 + ring.radius * Math.sin(angle);
-
-            return (
-              <MotionBox
-                key={skill.name}
-                animate={{ rotate: -360 }}
-                transition={{
-                  duration: ring.duration,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                whileHover={{ scale: 1.2 }}
+            {isSelected && (
+              <Typography
+                component={motion.p}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
                 sx={{
-                  position: "absolute",
-                  top: `${y}%`,
-                  left: `${x}%`,
-                  transform: "translate(-50%, -50%)",
-                  width: { xs: 40, md: 54 },
-                  height: { xs: 40, md: 54 },
-                  borderRadius: "50%",
-                  background: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: { xs: 18, md: 24 },
-                  color: skill.color,
-                  boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
-                  cursor: "default",
-                  zIndex: 2,
+                  color: "#111",
+                  fontWeight: 800,
+                  fontSize: { xs: 13, md: 15 },
                 }}
-                title={skill.name}
               >
-                {skill.icon}
-              </MotionBox>
-            );
-          })}
-        </MotionBox>
-      ))}
+                {skill.name}
+              </Typography>
+            )}
+          </MotionBox>
+        );
+      })}
     </Box>
   );
 };
@@ -1058,7 +1036,7 @@ export default function Portfolio() {
                   </Typography>
                 </Box>
               </MotionBox> */}
-              <SkillsOrbit />
+              <SkillsBentoGrid />
             </Box>
           </MotionBox>
         </Box>
