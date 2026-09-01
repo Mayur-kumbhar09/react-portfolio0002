@@ -30,6 +30,20 @@ import porjectImgOne from "../images/c_p_manage.jpg";
 import porjectImgTwo from "../images/s_dashboard.jpg";
 import porjectImgThree from "../images/v_mouse.jfif.jpg";
 import PortfolioImg from "../images/portfolio_img.png";
+import {
+  SiReact,
+  SiJavascript,
+  SiNodedotjs,
+  SiHtml5,
+  SiCss3,
+  SiMongodb,
+  SiMysql,
+  SiPython,
+  SiGit,
+  SiExpress,
+  SiSpring,
+} from "react-icons/si";
+import { DiJava } from "react-icons/di";
 
 const MotionBox = motion(Box);
 
@@ -185,18 +199,18 @@ const projects = [
   },
 ];
 const orbitSkills = [
-  "React.js",
-  "JavaScript",
-  "Node.js",
-  "HTML5",
-  "CSS3",
-  "Material UI",
-  "MongoDB",
-  "MySQL",
-  "Java",
-  "Python",
-  "Git",
-  "REST API",
+  { name: "React", icon: <SiReact />, color: "#61DAFB" },
+  { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
+  { name: "Node.js", icon: <SiNodedotjs />, color: "#3C873A" },
+  { name: "HTML5", icon: <SiHtml5 />, color: "#E34F26" },
+  { name: "CSS3", icon: <SiCss3 />, color: "#1572B6" },
+  { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
+  { name: "MySQL", icon: <SiMysql />, color: "#4479A1" },
+  { name: "Java", icon: <DiJava />, color: "#EA2D2E" },
+  { name: "Python", icon: <SiPython />, color: "#3776AB" },
+  { name: "Git", icon: <SiGit />, color: "#F05032" },
+  { name: "Express", icon: <SiExpress />, color: "#ffffff" },
+  { name: "Spring Boot", icon: <SiSpring />, color: "#6DB33F" },
 ];
 
 const fadeUp = {
@@ -270,10 +284,38 @@ const HeroMeshBackground = () => (
 
     <rect width="1920" height="1080" fill="url(#base)" />
 
-    <ellipse cx="1500" cy="250" rx="520" ry="420" fill="url(#glow1)" filter="url(#blurHeavy)" />
-    <ellipse cx="250" cy="850" rx="480" ry="380" fill="url(#glow2)" filter="url(#blurHeavy)" />
-    <ellipse cx="1000" cy="950" rx="600" ry="300" fill="url(#glow3)" filter="url(#blurMed)" />
-    <ellipse cx="1750" cy="900" rx="350" ry="300" fill="url(#glow1)" filter="url(#blurMed)" />
+    <ellipse
+      cx="1500"
+      cy="250"
+      rx="520"
+      ry="420"
+      fill="url(#glow1)"
+      filter="url(#blurHeavy)"
+    />
+    <ellipse
+      cx="250"
+      cy="850"
+      rx="480"
+      ry="380"
+      fill="url(#glow2)"
+      filter="url(#blurHeavy)"
+    />
+    <ellipse
+      cx="1000"
+      cy="950"
+      rx="600"
+      ry="300"
+      fill="url(#glow3)"
+      filter="url(#blurMed)"
+    />
+    <ellipse
+      cx="1750"
+      cy="900"
+      rx="350"
+      ry="300"
+      fill="url(#glow1)"
+      filter="url(#blurMed)"
+    />
 
     <g opacity="0.05" stroke="#ffffff" strokeWidth="1">
       <line x1="0" y1="0" x2="1920" y2="1080" />
@@ -282,7 +324,7 @@ const HeroMeshBackground = () => (
   </Box>
 );
 const SkillsOrbit = () => {
-  const radius = 42; // percentage radius from center
+  const radius = 42;
 
   return (
     <Box
@@ -337,7 +379,7 @@ const SkillsOrbit = () => {
         </Typography>
       </Box>
 
-      {/* rotating ring of skills */}
+      {/* rotating ring of skill logos */}
       <MotionBox
         animate={{ rotate: 360 }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -350,41 +392,43 @@ const SkillsOrbit = () => {
 
           return (
             <MotionBox
-              key={skill}
-              // counter-rotate so text always stays upright
+              key={skill.name}
+              // counter-rotate so the logo always stays upright
               animate={{ rotate: -360 }}
               transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              whileHover={{ scale: 1.15 }}
+              whileHover={{ scale: 1.2 }}
               sx={{
                 position: "absolute",
                 top: `${y}%`,
                 left: `${x}%`,
                 transform: "translate(-50%, -50%)",
-                whiteSpace: "nowrap",
-                px: { xs: 1.3, md: 1.8 },
-                py: { xs: 0.6, md: 0.8 },
-                borderRadius: "999px",
+                width: { xs: 46, md: 58 },
+                height: { xs: 46, md: 58 },
+                borderRadius: "50%",
                 border: `1px solid ${theme.border}`,
                 background: theme.background,
-                color: theme.text,
-                fontSize: { xs: 11, md: 13 },
-                fontWeight: 700,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: { xs: 20, md: 26 },
+                color: skill.color,
                 cursor: "default",
                 zIndex: 1,
+                transition: "border-color 0.3s",
                 "&:hover": {
                   borderColor: theme.accent,
-                  color: theme.accent,
                 },
               }}
+              title={skill.name}
             >
-              {skill}
+              {skill.icon}
             </MotionBox>
           );
         })}
       </MotionBox>
     </Box>
   );
-};
+}; 
 export default function Portfolio() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -741,9 +785,7 @@ export default function Portfolio() {
                   <br />
                   DIGITAL
                   <br />
-                  <span style={{ color: theme.accent }}>
-                    EXPERIENCES.
-                  </span>
+                  <span style={{ color: theme.accent }}>EXPERIENCES.</span>
                 </Typography>
               </MotionBox>
 
@@ -772,8 +814,8 @@ export default function Portfolio() {
                   }}
                 >
                   I'm Mayur Kumbhar, a React.js Developer focused on building
-                  responsive, modern and high-performance web applications
-                  with clean UI and reliable user experiences.
+                  responsive, modern and high-performance web applications with
+                  clean UI and reliable user experiences.
                 </Typography>
 
                 <Box
@@ -889,13 +931,8 @@ export default function Portfolio() {
                 >
                   BUILDING CLEAN.
                   <br />
-
-                  <span style={{ color: theme.accent }}>
-                    BUILDING USEFUL.
-                  </span>
-
+                  <span style={{ color: theme.accent }}>BUILDING USEFUL.</span>
                   <br />
-
                   BUILDING FAST.
                 </Typography>
 
@@ -928,11 +965,11 @@ export default function Portfolio() {
                     mb: 3,
                   }}
                 >
-                  My core expertise includes React.js, JavaScript, HTML5,
-                  CSS3, Material UI and responsive frontend development. I
-                  enjoy building reusable components, integrating REST APIs
-                  and improving application performance across different
-                  devices and browsers.
+                  My core expertise includes React.js, JavaScript, HTML5, CSS3,
+                  Material UI and responsive frontend development. I enjoy
+                  building reusable components, integrating REST APIs and
+                  improving application performance across different devices and
+                  browsers.
                 </Typography>
 
                 <Typography
@@ -1072,10 +1109,7 @@ export default function Portfolio() {
             >
               WHAT I
               <br />
-
-              <span style={{ color: theme.accent }}>
-                BUILD.
-              </span>
+              <span style={{ color: theme.accent }}>BUILD.</span>
             </Typography>
 
             {services.map((service) => (
@@ -1211,10 +1245,7 @@ export default function Portfolio() {
             >
               MY TECH
               <br />
-
-              <span style={{ color: theme.accent }}>
-                TOOLKIT.
-              </span>
+              <span style={{ color: theme.accent }}>TOOLKIT.</span>
             </Typography>
 
             <Box>
@@ -1361,10 +1392,7 @@ export default function Portfolio() {
             >
               PROJECTS
               <br />
-
-              <span style={{ color: theme.accent }}>
-                THAT MATTER.
-              </span>
+              <span style={{ color: theme.accent }}>THAT MATTER.</span>
             </Typography>
 
             {projects.map((project, index) => (
@@ -1503,9 +1531,7 @@ export default function Portfolio() {
                   <Button
                     href={project.link}
                     target={
-                      project.link.startsWith("http")
-                        ? "_blank"
-                        : undefined
+                      project.link.startsWith("http") ? "_blank" : undefined
                     }
                     endIcon={<ArrowOutwardIcon />}
                     sx={{
@@ -1576,10 +1602,7 @@ export default function Portfolio() {
             >
               EXPERIENCE
               <br />
-
-              <span style={{ color: theme.accent }}>
-                THAT BUILDS.
-              </span>
+              <span style={{ color: theme.accent }}>THAT BUILDS.</span>
             </Typography>
 
             <Box
@@ -1762,13 +1785,9 @@ export default function Portfolio() {
             >
               LET'S BUILD
               <br />
-
               SOMETHING
               <br />
-
-              <span style={{ color: theme.accent }}>
-                GREAT.
-              </span>
+              <span style={{ color: theme.accent }}>GREAT.</span>
             </Typography>
 
             {/* EXACT TWO EQUAL PARTS */}
