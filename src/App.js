@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Portfolio from "./compo/home/Portfolio";
-import { Box, Typography, CssBaseline, Button } from "@mui/material";
+import { Box, CssBaseline, Button } from "@mui/material";
 import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
 const App = () => {
   const [showOverlay, setShowOverlay] = useState(true);
@@ -18,6 +18,7 @@ const App = () => {
       behavior: "smooth", // For a smooth scrolling animation
     });
   };
+  console.log(showOverlay);
   return (
     <>
       <CssBaseline />
