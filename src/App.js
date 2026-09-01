@@ -21,7 +21,7 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      {showOverlay ? (
+      {/* {showOverlay ? (
         <Box
           sx={{
             position: "fixed",
@@ -61,7 +61,24 @@ const App = () => {
             <VerticalAlignTopIcon />
           </Button>
         </Box>
-      )}
+      )} */}
+      <Box sx={{ position: "relative" }}>
+        <Portfolio sx={{ zIndex: 1, position: "absolute" }} />
+        <Button
+          onClick={scrollToTop}
+          sx={{
+            left: "90%",
+            top: "96.8%",
+            position: "absolute",
+            width: "",
+            background: "#f2f2f2",
+            color: "#071029",
+            fontSize: "3.875rem",
+          }}
+        >
+          <VerticalAlignTopIcon />
+        </Button>
+      </Box>
     </>
   );
 };
