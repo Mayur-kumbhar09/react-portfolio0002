@@ -332,7 +332,7 @@ const SkillsBentoGrid = () => {
     <Box
       sx={{
         display: "grid",
-        maxWidth: 720,
+        maxWidth: 950,
         mx: "auto",
         gap: { xs: 1.5, md: 2 },
         gridTemplateColumns: "repeat(4, 1fr)",
@@ -354,7 +354,7 @@ const SkillsBentoGrid = () => {
           <MotionBox
             key={skill.name}
             whileHover={{
-              scale: 1.06,
+              scale: 4.06,
               y: -4,
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -376,7 +376,7 @@ const SkillsBentoGrid = () => {
             }}
           >
             <MotionBox
-              whileHover={{ scale: 1.15, rotate: 4 }}
+              whileHover={{ scale: 2.15, rotate: 4 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
               sx={{
                 fontSize: isBig
