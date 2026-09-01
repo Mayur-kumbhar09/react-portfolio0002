@@ -185,6 +185,20 @@ const projects = [
     link: "#",
   },
 ];
+const orbitSkills = [
+  "React.js",
+  "JavaScript",
+  "Node.js",
+  "HTML5",
+  "CSS3",
+  "Material UI",
+  "MongoDB",
+  "MySQL",
+  "Java",
+  "Python",
+  "Git",
+  "REST API",
+];
 
 const fadeUp = {
   hidden: {
@@ -268,7 +282,110 @@ const HeroMeshBackground = () => (
     </g>
   </Box>
 );
+const SkillsOrbit = () => {
+  const radius = 42; // percentage radius from center
 
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        width: "100%",
+        maxWidth: 560,
+        aspectRatio: "1 / 1",
+        mx: "auto",
+        my: { xs: 8, md: 10 },
+      }}
+    >
+      {/* faint guide ring */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: "8%",
+          borderRadius: "50%",
+          border: `1px dashed ${theme.border}`,
+        }}
+      />
+
+      {/* center label */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: { xs: 110, md: 160 },
+          height: { xs: 110, md: 160 },
+          borderRadius: "50%",
+          border: `1px solid ${theme.accent}`,
+          background: theme.surface,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          zIndex: 2,
+        }}
+      >
+        <Typography
+          sx={{
+            fontWeight: 900,
+            fontSize: { xs: 14, md: 18 },
+            lineHeight: 1.3,
+          }}
+        >
+          MY
+          <br />
+          <span style={{ color: theme.accent }}>SKILLS</span>
+        </Typography>
+      </Box>
+
+      {/* rotating ring of skills */}
+      <MotionBox
+        animate={{ rotate: 360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        sx={{ position: "absolute", inset: 0 }}
+      >
+        {orbitSkills.map((skill, index) => {
+          const angle = (index / orbitSkills.length) * 2 * Math.PI;
+          const x = 50 + radius * Math.cos(angle);
+          const y = 50 + radius * Math.sin(angle);
+
+          return (
+            <MotionBox
+              key={skill}
+              // counter-rotate so text always stays upright
+              animate={{ rotate: -360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              whileHover={{ scale: 1.15 }}
+              sx={{
+                position: "absolute",
+                top: `${y}%`,
+                left: `${x}%`,
+                transform: "translate(-50%, -50%)",
+                whiteSpace: "nowrap",
+                px: { xs: 1.3, md: 1.8 },
+                py: { xs: 0.6, md: 0.8 },
+                borderRadius: "999px",
+                border: `1px solid ${theme.border}`,
+                background: theme.background,
+                color: theme.text,
+                fontSize: { xs: 11, md: 13 },
+                fontWeight: 700,
+                cursor: "default",
+                zIndex: 1,
+                "&:hover": {
+                  borderColor: theme.accent,
+                  color: theme.accent,
+                },
+              }}
+            >
+              {skill}
+            </MotionBox>
+          );
+        })}
+      </MotionBox>
+    </Box>
+  );
+};
 export default function Portfolio() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -836,7 +953,7 @@ export default function Portfolio() {
                 </Typography>
               </Box>
 
-              <MotionBox
+              {/* <MotionBox
                 whileHover={{
                   scale: 1.02,
                 }}
@@ -909,7 +1026,8 @@ export default function Portfolio() {
                     MAYUR KUMBHAR
                   </Typography>
                 </Box>
-              </MotionBox>
+              </MotionBox> */}
+              <SkillsOrbit />
             </Box>
           </MotionBox>
         </Box>
