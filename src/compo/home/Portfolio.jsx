@@ -384,7 +384,7 @@ const SkillsOrbit = () => {
         <Typography
           sx={{
             fontWeight: 900,
-            fontSize: { xs: 24, md: 34 },
+            fontSize: { xs: 20, md: 24 },
             color: theme.text,
             letterSpacing: "-0.03em",
           }}
