@@ -65,20 +65,34 @@ const App = () => {
       )} */}
       <Box sx={{ position: "relative" }}>
         <Portfolio sx={{ zIndex: 1, position: "absolute" }} />
-        <Button
+        <IconButton
           onClick={scrollToTop}
+          aria-label="Scroll to top"
           sx={{
-            left: "95%",
-            top: "98.8%",
-            position: "absolute",
-            width: "",
+            position: "fixed",
+            bottom: { xs: 16, sm: 24, md: 32 },
+            right: { xs: 16, sm: 24, md: 32 },
+            zIndex: 1200,
+            width: { xs: 44, sm: 50, md: 56 },
+            height: { xs: 44, sm: 50, md: 56 },
             background: "#f2f2f2",
             color: "#071029",
-            fontSize: "3.675rem",
+            borderRadius: "50%",
+            boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+            transition: "transform 0.25s ease, box-shadow 0.25s ease",
+            "&:hover": {
+              background: "#ffffff",
+              transform: "translateY(-3px)",
+              boxShadow: "0 10px 24px rgba(0,0,0,0.35)",
+            },
           }}
         >
-          <VerticalAlignTopIcon />
-        </Button>
+          <VerticalAlignTopIcon
+            sx={{
+              fontSize: { xs: 22, sm: 26, md: 30 },
+            }}
+          />
+        </IconButton>
       </Box>
     </>
   );
