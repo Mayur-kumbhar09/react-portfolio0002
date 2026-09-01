@@ -216,7 +216,6 @@ const skillsGridItems = [
   { name: "Spring Boot", icon: <SiSpring />, color: "#6DB33F" },
 ];
 
-
 const fadeUp = {
   hidden: {
     opacity: 0,
@@ -331,57 +330,45 @@ const SkillsBentoGrid = () => {
   return (
     <Box
       sx={{
-        display: "grid",
-        maxWidth: 950,
-        mx: "auto",
-        gap: { xs: 1.5, md: 2 },
-        gridTemplateColumns: "repeat(4, 1fr)",
-        gridTemplateRows: "repeat(4, minmax(70px, 1fr))",
-        gridTemplateAreas: {
-          xs: `
-            "big1 big1 s1 s2"
-            "big1 big1 s3 s4"
-            "s5 s6 big2 big2"
-            "s7 s8 big2 big2"
-          `,
-        },
+        display: "flex",
+        flexWrap: "wrap",
+        width: "100%",
+        gap: { xs: 1.5, md: 2.5 },
       }}
     >
       {skillsGridItems.map((skill) => {
-        const isBig = skill.area?.startsWith("big");
+        const isBig = skill.size === "big";
 
         return (
           <MotionBox
             key={skill.name}
             whileHover={{
-              scale: 4.06,
-              y: -4,
+              scale: 1.05,
+              y: -6,
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             sx={{
-              gridArea: skill.area,
+              flex: isBig ? "1 1 260px" : "1 1 110px",
+              height: isBig ? { xs: 180, md: 240 } : { xs: 90, md: 110 },
+              maxWidth: isBig ? 320 : 160,
               background: "#f4f4f4",
-              borderRadius: { xs: 3, md: 4 },
+              borderRadius: { xs: 4, md: 6 },
               display: "flex",
-              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: 1,
               cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
-              transition: "box-shadow 0.3s",
+              boxShadow: "0 6px 18px rgba(0,0,0,0.18)",
+              transition: "box-shadow 0.3s ease",
               "&:hover": {
-                boxShadow: "0 14px 34px rgba(0,0,0,0.35)",
+                boxShadow: "0 16px 36px rgba(0,0,0,0.4)",
               },
             }}
           >
             <MotionBox
-              whileHover={{ scale: 2.15, rotate: 4 }}
+              whileHover={{ scale: 1.12 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
               sx={{
-                fontSize: isBig
-                  ? { xs: 46, md: 68 }
-                  : { xs: 22, md: 30 },
+                fontSize: isBig ? { xs: 56, md: 84 } : { xs: 26, md: 36 },
                 color: skill.color,
                 display: "flex",
                 alignItems: "center",
@@ -390,18 +377,6 @@ const SkillsBentoGrid = () => {
             >
               {skill.icon}
             </MotionBox>
-
-            {isBig && (
-              <Typography
-                sx={{
-                  color: "#111",
-                  fontWeight: 800,
-                  fontSize: { xs: 13, md: 15 },
-                }}
-              >
-                {skill.name}
-              </Typography>
-            )}
           </MotionBox>
         );
       })}
