@@ -328,39 +328,38 @@ const HeroMeshBackground = () => (
   </Box>
 );
 const SkillsBentoGrid = () => {
-  // First item selected by default, like the reference image
-  const [selected, setSelected] = useState(skillsGridItems[0].name);
-
   return (
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: {
-          xs: "repeat(3, 1fr)",
-          sm: "repeat(4, 1fr)",
-          md: "repeat(5, 1fr)",
-        },
-        gridAutoRows: { xs: 90, md: 120 },
-        gap: { xs: 1.5, md: 2 },
-        maxWidth: 900,
+        maxWidth: 720,
         mx: "auto",
+        gap: { xs: 1.5, md: 2 },
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gridTemplateRows: "repeat(4, minmax(70px, 1fr))",
+        gridTemplateAreas: {
+          xs: `
+            "big1 big1 s1 s2"
+            "big1 big1 s3 s4"
+            "s5 s6 big2 big2"
+            "s7 s8 big2 big2"
+          `,
+        },
       }}
     >
       {skillsGridItems.map((skill) => {
-        const isSelected = selected === skill.name;
+        const isBig = skill.area.startsWith("big");
 
         return (
           <MotionBox
             key={skill.name}
-            layout
-            onClick={() => setSelected(skill.name)}
-            transition={{
-              layout: { type: "spring", stiffness: 260, damping: 26 },
+            whileHover={{
+              scale: 1.06,
+              y: -4,
             }}
-            whileTap={{ scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             sx={{
-              gridColumn: isSelected ? "span 2" : "span 1",
-              gridRow: isSelected ? "span 2" : "span 1",
+              gridArea: skill.area,
               background: "#f4f4f4",
               borderRadius: { xs: 3, md: 4 },
               display: "flex",
@@ -369,17 +368,20 @@ const SkillsBentoGrid = () => {
               justifyContent: "center",
               gap: 1,
               cursor: "pointer",
-              overflow: "hidden",
-              boxShadow: isSelected
-                ? "0 12px 30px rgba(0,0,0,0.35)"
-                : "0 4px 12px rgba(0,0,0,0.15)",
+              boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
+              transition: "box-shadow 0.3s",
+              "&:hover": {
+                boxShadow: "0 14px 34px rgba(0,0,0,0.35)",
+              },
             }}
           >
-            <Box
-              component={motion.div}
-              layout
+            <MotionBox
+              whileHover={{ scale: 1.15, rotate: 4 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
               sx={{
-                fontSize: isSelected ? { xs: 44, md: 64 } : { xs: 22, md: 30 },
+                fontSize: isBig
+                  ? { xs: 46, md: 68 }
+                  : { xs: 22, md: 30 },
                 color: skill.color,
                 display: "flex",
                 alignItems: "center",
@@ -387,13 +389,10 @@ const SkillsBentoGrid = () => {
               }}
             >
               {skill.icon}
-            </Box>
+            </MotionBox>
 
-            {isSelected && (
+            {isBig && (
               <Typography
-                component={motion.p}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
                 sx={{
                   color: "#111",
                   fontWeight: 800,
