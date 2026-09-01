@@ -35,11 +35,11 @@ import {
   FaNodeJs,
   FaHtml5,
   FaCss3Alt,
-  FaJava,
-  FaPython,
   FaGitAlt,
 } from "react-icons/fa";
-import { SiJavascript, SiMongodb, SiMysql, SiExpress, SiSpring } from "react-icons/si";
+import { SiJavascript, SiMongodb } from "react-icons/si";
+import { SiTypescript } from "react-icons/si";
+import { FaFigma } from "react-icons/fa";
 
 const MotionBox = motion(Box);
 
@@ -194,19 +194,34 @@ const projects = [
     link: "#",
   },
 ];
-const orbitSkills = [
-  { name: "React", icon: <FaReact />, color: "#61DAFB" },
-  { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
-  { name: "Node.js", icon: <FaNodeJs />, color: "#3C873A" },
-  { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
-  { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
-  { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
-  { name: "MySQL", icon: <SiMysql />, color: "#4479A1" },
-  { name: "Java", icon: <FaJava />, color: "#EA2D2E" },
-  { name: "Python", icon: <FaPython />, color: "#3776AB" },
-  { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
-  { name: "Express", icon: <SiExpress />, color: "#ffffff" },
-  { name: "Spring Boot", icon: <SiSpring />, color: "#6DB33F" },
+const orbitRings = [
+  {
+    radius: 15,
+    duration: 18,
+    skills: [
+      { name: "React", icon: <FaReact />, color: "#61DAFB" },
+      { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
+    ],
+  },
+  {
+    radius: 30,
+    duration: 26,
+    skills: [
+      { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
+      { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
+      { name: "Figma", icon: <FaFigma />, color: "#F24E1E" },
+    ],
+  },
+  {
+    radius: 45,
+    duration: 34,
+    skills: [
+      { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
+      { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
+      { name: "Node.js", icon: <FaNodeJs />, color: "#3C873A" },
+      { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
+    ],
+  },
 ];
 
 const fadeUp = {
@@ -320,111 +335,122 @@ const HeroMeshBackground = () => (
   </Box>
 );
 const SkillsOrbit = () => {
-  const radius = 42;
-
   return (
     <Box
       sx={{
         position: "relative",
         width: "100%",
-        maxWidth: 560,
+        maxWidth: 640,
         aspectRatio: "1 / 1",
         mx: "auto",
         my: { xs: 8, md: 10 },
       }}
     >
-      {/* faint guide ring */}
-      <Box
-        sx={{
-          position: "absolute",
-          inset: "8%",
-          borderRadius: "50%",
-          border: `1px dashed ${theme.border}`,
-        }}
-      />
+      {/* dashed guide rings */}
+      {orbitRings.map((ring) => (
+        <Box
+          key={`ring-${ring.radius}`}
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: `${ring.radius * 2}%`,
+            height: `${ring.radius * 2}%`,
+            transform: "translate(-50%, -50%)",
+            borderRadius: "50%",
+            border: `1px dashed ${theme.border}`,
+          }}
+        />
+      ))}
 
-      {/* center label */}
+      {/* center logo */}
       <Box
         sx={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: { xs: 110, md: 160 },
-          height: { xs: 110, md: 160 },
+          width: { xs: 90, md: 120 },
+          height: { xs: 90, md: 120 },
           borderRadius: "50%",
-          border: `1px solid ${theme.accent}`,
-          background: theme.surface,
+          background: "#000",
+          border: `1px solid ${theme.border}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          textAlign: "center",
-          zIndex: 2,
+          zIndex: 3,
         }}
       >
         <Typography
           sx={{
             fontWeight: 900,
-            fontSize: { xs: 14, md: 18 },
-            lineHeight: 1.3,
+            fontSize: { xs: 24, md: 34 },
+            color: theme.text,
+            letterSpacing: "-0.03em",
           }}
         >
-          MY
-          <br />
-          <span style={{ color: theme.accent }}>SKILLS</span>
+          MK
         </Typography>
       </Box>
 
-      {/* rotating ring of skill logos */}
-      <MotionBox
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        sx={{ position: "absolute", inset: 0 }}
-      >
-        {orbitSkills.map((skill, index) => {
-          const angle = (index / orbitSkills.length) * 2 * Math.PI;
-          const x = 50 + radius * Math.cos(angle);
-          const y = 50 + radius * Math.sin(angle);
+      {/* rotating rings, each independent speed */}
+      {orbitRings.map((ring, ringIndex) => (
+        <MotionBox
+          key={`spin-${ring.radius}`}
+          animate={{ rotate: 360 }}
+          transition={{
+            duration: ring.duration,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          sx={{ position: "absolute", inset: 0 }}
+        >
+          {ring.skills.map((skill, index) => {
+            const angle =
+              (index / ring.skills.length) * 2 * Math.PI +
+              (ringIndex * Math.PI) / 6; // offsets rings so icons don't align
+            const x = 50 + ring.radius * Math.cos(angle);
+            const y = 50 + ring.radius * Math.sin(angle);
 
-          return (
-            <MotionBox
-              key={skill.name}
-              // counter-rotate so the logo always stays upright
-              animate={{ rotate: -360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              whileHover={{ scale: 1.2 }}
-              sx={{
-                position: "absolute",
-                top: `${y}%`,
-                left: `${x}%`,
-                transform: "translate(-50%, -50%)",
-                width: { xs: 46, md: 58 },
-                height: { xs: 46, md: 58 },
-                borderRadius: "50%",
-                border: `1px solid ${theme.border}`,
-                background: theme.background,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: { xs: 20, md: 26 },
-                color: skill.color,
-                cursor: "default",
-                zIndex: 1,
-                transition: "border-color 0.3s",
-                "&:hover": {
-                  borderColor: theme.accent,
-                },
-              }}
-              title={skill.name}
-            >
-              {skill.icon}
-            </MotionBox>
-          );
-        })}
-      </MotionBox>
+            return (
+              <MotionBox
+                key={skill.name}
+                animate={{ rotate: -360 }}
+                transition={{
+                  duration: ring.duration,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                whileHover={{ scale: 1.2 }}
+                sx={{
+                  position: "absolute",
+                  top: `${y}%`,
+                  left: `${x}%`,
+                  transform: "translate(-50%, -50%)",
+                  width: { xs: 40, md: 54 },
+                  height: { xs: 40, md: 54 },
+                  borderRadius: "50%",
+                  background: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: { xs: 18, md: 24 },
+                  color: skill.color,
+                  boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+                  cursor: "default",
+                  zIndex: 2,
+                }}
+                title={skill.name}
+              >
+                {skill.icon}
+              </MotionBox>
+            );
+          })}
+        </MotionBox>
+      ))}
     </Box>
   );
-}; 
+};
 export default function Portfolio() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
