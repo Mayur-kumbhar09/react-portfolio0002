@@ -28,7 +28,6 @@ import ApiIcon from "@mui/icons-material/Api";
 
 import porjectImgOne from "../images/c_p_manage.jpg";
 import porjectImgTwo from "../images/s_dashboard.jpg";
-import porjectImgThree from "../images/v_mouse.jfif.jpg";
 import PortfolioImg from "../images/portfolio_img.png";
 import {
   FaReact,
