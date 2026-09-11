@@ -1736,7 +1736,7 @@ export default function Portfolio() {
             </Box>
 
             {/* ---------------- PROJECT 03 — PERSONAL PORTFOLIO ---------------- */}
-            <Box
+            <Box 
               sx={{
                 borderTop: `1px solid ${theme.border}`,
                 borderBottom: `1px solid ${theme.border}`,
