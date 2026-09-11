@@ -1515,7 +1515,7 @@ export default function Portfolio() {
         {/* ===================================================== */}
 
         <Box
-          id="experience"
+          id="projects"
           sx={{
             px: { xs: 2, md: 5 },
             py: { xs: 10, md: 18 },
@@ -1539,7 +1539,7 @@ export default function Portfolio() {
                 mb: 3,
               }}
             >
-              [ PROFESSIONAL EXPERIENCE ]
+              [ SELECTED PROJECTS ]
             </Typography>
 
             <Typography
@@ -1554,19 +1554,19 @@ export default function Portfolio() {
                 mb: 10,
               }}
             >
-              EXPERIENCE
+              THINGS
               <br />
-              <span style={{ color: theme.accent }}>THAT BUILDS.</span>
+              <span style={{ color: theme.accent }}>I'VE BUILT.</span>
             </Typography>
 
+            {/* ---------------- PROJECT 01 — CUSTOMER PROJECT ---------------- */}
+            {/* Keep your existing "customer product project" block as-is.
+        Paste your current card JSX here in place of this comment,
+        just update the index label to [ 01 ] to stay consistent. */}
             <Box
               sx={{
                 borderTop: `1px solid ${theme.border}`,
-                borderBottom: `1px solid ${theme.border}`,
-                py: {
-                  xs: 4,
-                  md: 6,
-                },
+                py: { xs: 4, md: 6 },
               }}
             >
               <Box
@@ -1577,31 +1577,80 @@ export default function Portfolio() {
                     md: "0.2fr 1fr 0.35fr",
                   },
                   gap: 4,
-                  mb: 6,
+                  mb: 3,
                 }}
               >
-                <Typography
-                  sx={{
-                    color: theme.accent,
-                    fontWeight: 800,
-                  }}
-                >
+                <Typography sx={{ color: theme.accent, fontWeight: 800 }}>
                   [ 01 ]
                 </Typography>
 
                 <Box>
+                  {/* --- YOUR EXISTING CUSTOMER PROJECT TITLE/DESC GOES HERE --- */}
                   <Typography
                     sx={{
-                      fontSize: {
-                        xs: 28,
-                        md: 48,
-                      },
+                      fontSize: { xs: 28, md: 48 },
                       fontWeight: 900,
                       letterSpacing: "-0.04em",
                       mb: 1,
                     }}
                   >
-                    Web Designer / Developer
+                    {/* e.g. Customer Product Project */}
+                  </Typography>
+                </Box>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    textAlign: { xs: "left", md: "right" },
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {/* keep your existing year / stack tag */}
+                </Typography>
+              </Box>
+              {/* keep rest of your existing customer project content unchanged */}
+            </Box>
+
+            {/* ---------------- PROJECT 02 — HEXA LED WALL ---------------- */}
+            <Box
+              sx={{
+                borderTop: `1px solid ${theme.border}`,
+                py: { xs: 4, md: 6 },
+              }}
+            >
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    md: "0.2fr 1fr 0.35fr",
+                  },
+                  gap: 4,
+                  mb: 3,
+                }}
+              >
+                <Typography sx={{ color: theme.accent, fontWeight: 800 }}>
+                  [ 02 ]
+                </Typography>
+
+                <Box>
+                  <Typography
+                    component="a"
+                    href="https://hexa-led-source.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      fontSize: { xs: 28, md: 48 },
+                      fontWeight: 900,
+                      letterSpacing: "-0.04em",
+                      mb: 1,
+                      display: "inline-block",
+                      color: "inherit",
+                      textDecoration: "none",
+                      "&:hover": { color: theme.accent },
+                    }}
+                  >
+                    Hexa LED Wall — Client Website
                   </Typography>
 
                   <Typography
@@ -1611,33 +1660,27 @@ export default function Portfolio() {
                       fontSize: 16,
                     }}
                   >
-                    LPC Advisors Pvt. Ltd.
+                    Next.js, HTML5, CSS3, JavaScript (Standalone/Static Site)
                   </Typography>
                 </Box>
 
                 <Typography
                   sx={{
                     color: theme.muted,
-                    textAlign: {
-                      xs: "left",
-                      md: "right",
-                    },
+                    textAlign: { xs: "left", md: "right" },
                     lineHeight: 1.7,
                   }}
                 >
-                  AUG 2023 — PRESENT
+                  2026
                   <br />
-                  INDIA
+                  CLIENT PROJECT
                 </Typography>
               </Box>
 
               <Box
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: {
-                    xs: "1fr",
-                    md: "0.2fr 1fr",
-                  },
+                  gridTemplateColumns: { xs: "1fr", md: "0.2fr 1fr" },
                   gap: 4,
                 }}
               >
@@ -1651,38 +1694,161 @@ export default function Portfolio() {
                     maxWidth: 900,
                   }}
                 >
+                  <Typography
+                    sx={{
+                      color: theme.muted,
+                      fontSize: { xs: 16, md: 18 },
+                      lineHeight: 1.7,
+                      fontStyle: "italic",
+                      mb: 1,
+                    }}
+                  >
+                    A standalone marketing website built for a client's LED
+                    display business, presenting products and services through a
+                    fast, static site.
+                  </Typography>
+
                   {[
-                    "Build and maintain responsive web applications using React.js, JavaScript, HTML5, CSS3, Material UI and REST API integrations.",
-                    "Develop reusable and responsive UI components to improve consistency, usability and maintainability across web applications.",
-                    "Integrate frontend interfaces with REST APIs and support smooth data flow between frontend and backend systems.",
-                    "Test applications, identify and debug frontend issues, and support troubleshooting and production fixes.",
-                    "Improve website usability, responsive behavior, cross-browser compatibility and frontend performance.",
-                    "Collaborate on web development tasks while following responsive design and user-focused UI development practices.",
+                    "Developed a standalone client website using Next.js, HTML5, CSS3, and JavaScript with a static, content-driven architecture.",
+                    "Built a fully responsive, cross-browser compatible layout tailored to client branding and business requirements.",
+                    "Leveraged Next.js for optimized page structure and fast load times across desktop and mobile devices.",
                   ].map((item, index) => (
                     <Box
                       key={index}
-                      sx={{
-                        display: "flex",
-                        gap: 2,
-                        alignItems: "flex-start",
-                      }}
+                      sx={{ display: "flex", gap: 2, alignItems: "flex-start" }}
                     >
-                      <Typography
-                        sx={{
-                          color: theme.accent,
-                          fontWeight: 900,
-                        }}
-                      >
+                      <Typography sx={{ color: theme.accent, fontWeight: 900 }}>
                         —
                       </Typography>
-
                       <Typography
                         sx={{
                           color: theme.muted,
-                          fontSize: {
-                            xs: 16,
-                            md: 18,
-                          },
+                          fontSize: { xs: 16, md: 18 },
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {item}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            </Box>
+
+            {/* ---------------- PROJECT 03 — PERSONAL PORTFOLIO ---------------- */}
+            <Box
+              sx={{
+                borderTop: `1px solid ${theme.border}`,
+                borderBottom: `1px solid ${theme.border}`,
+                py: { xs: 4, md: 6 },
+              }}
+            >
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    md: "0.2fr 1fr 0.35fr",
+                  },
+                  gap: 4,
+                  mb: 3,
+                }}
+              >
+                <Typography sx={{ color: theme.accent, fontWeight: 800 }}>
+                  [ 03 ]
+                </Typography>
+
+                <Box>
+                  <Typography
+                    component="a"
+                    href="https://react-portfolio0002.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      fontSize: { xs: 28, md: 48 },
+                      fontWeight: 900,
+                      letterSpacing: "-0.04em",
+                      mb: 1,
+                      display: "inline-block",
+                      color: "inherit",
+                      textDecoration: "none",
+                      "&:hover": { color: theme.accent },
+                    }}
+                  >
+                    Personal Portfolio
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      color: theme.accent,
+                      fontWeight: 800,
+                      fontSize: 16,
+                    }}
+                  >
+                    React.js, JavaScript, HTML5, CSS3
+                  </Typography>
+                </Box>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    textAlign: { xs: "left", md: "right" },
+                    lineHeight: 1.7,
+                  }}
+                >
+                  2026
+                  <br />
+                  PERSONAL PROJECT
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", md: "0.2fr 1fr" },
+                  gap: 4,
+                }}
+              >
+                <Box />
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2.5,
+                    maxWidth: 900,
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: theme.muted,
+                      fontSize: { xs: 16, md: 18 },
+                      lineHeight: 1.7,
+                      fontStyle: "italic",
+                      mb: 1,
+                    }}
+                  >
+                    A personal portfolio site showcasing frontend projects,
+                    skills, and technical experience through a clean, modern
+                    interface.
+                  </Typography>
+
+                  {[
+                    "Designed and developed a responsive personal portfolio website to showcase frontend projects and technical experience.",
+                    "Built reusable, cross-browser compatible UI components using React.js, JavaScript, HTML5, and CSS3.",
+                    "Focused on clean layout, smooth navigation, and consistent performance across desktop and mobile devices.",
+                  ].map((item, index) => (
+                    <Box
+                      key={index}
+                      sx={{ display: "flex", gap: 2, alignItems: "flex-start" }}
+                    >
+                      <Typography sx={{ color: theme.accent, fontWeight: 900 }}>
+                        —
+                      </Typography>
+                      <Typography
+                        sx={{
+                          color: theme.muted,
+                          fontSize: { xs: 16, md: 18 },
                           lineHeight: 1.7,
                         }}
                       >
