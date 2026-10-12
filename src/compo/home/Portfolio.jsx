@@ -819,131 +819,6 @@ export default function Portfolio() {
         </Box>
 
         {/* ===================================================== */}
-        {/* ABOUT */}
-        {/* ===================================================== */}
-
-        <Box
-          id="about"
-          sx={{
-            px: { xs: 2, md: 5 },
-            py: { xs: 10, md: 18 },
-            borderTop: `1px solid ${theme.border}`,
-          }}
-        >
-          <MotionBox
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            sx={{
-              maxWidth: 1500,
-              mx: "auto",
-            }}
-          >
-            <Typography
-              sx={{
-                color: theme.accent,
-                fontSize: 14,
-                fontWeight: 800,
-                mb: 3,
-              }}
-            >
-              [ ABOUT ME ]
-            </Typography>
-
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: {
-                  xs: "1fr",
-                  md: "1.25fr 0.75fr",
-                },
-                gap: {
-                  xs: 6,
-                  md: 12,
-                },
-                alignItems: "center",
-              }}
-            >
-              <Box>
-                <Typography
-                  sx={{
-                    fontSize: {
-                      xs: "2.8rem",
-                      md: "5.5rem",
-                    },
-                    fontWeight: 900,
-                    lineHeight: 0.95,
-                    letterSpacing: "-0.06em",
-                    mb: 4,
-                  }}
-                >
-                  BUILDING CLEAN.
-                  <br />
-                  <span style={{ color: theme.accent }}>BUILDING USEFUL.</span>
-                  <br />
-                  BUILDING FAST.
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: theme.muted,
-                    fontSize: {
-                      xs: 17,
-                      md: 20,
-                    },
-                    lineHeight: 1.8,
-                    maxWidth: 750,
-                    mb: 3,
-                  }}
-                >
-                  I'm Mayur Kumbhar, a React.js Developer with professional
-                  experience building responsive, high-performance and
-                  user-friendly web applications.
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: theme.muted,
-                    fontSize: {
-                      xs: 17,
-                      md: 20,
-                    },
-                    lineHeight: 1.8,
-                    maxWidth: 750,
-                    mb: 3,
-                  }}
-                >
-                  My core expertise includes React.js, JavaScript, HTML5, CSS3,
-                  Material UI and responsive frontend development. I enjoy
-                  building reusable components, integrating REST APIs and
-                  improving application performance across different devices and
-                  browsers.
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: theme.muted,
-                    fontSize: {
-                      xs: 17,
-                      md: 20,
-                    },
-                    lineHeight: 1.8,
-                    maxWidth: 750,
-                  }}
-                >
-                  I also have hands-on knowledge of Node.js, Express.js, Java,
-                  Spring Boot, Python and databases, helping me understand
-                  complete application workflows beyond the frontend.
-                </Typography>
-              </Box>
-
-              <SkillsBentoGrid />
-            </Box>
-          </MotionBox>
-        </Box>
-
-        {/* ===================================================== */}
         {/* SERVICES */}
         {/* ===================================================== */}
 
@@ -1226,6 +1101,222 @@ export default function Portfolio() {
         </Box>
 
         {/* ===================================================== */}
+        {/* PROFESSIONAL EXPERIENCE */}
+        {/* ===================================================== */}
+
+        <Box
+          id="experience"
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 18 },
+            borderTop: `1px solid ${theme.border}`,
+            background: theme.background,
+            scrollMarginTop: "90px",
+          }}
+        >
+          <Box sx={{ maxWidth: 1500, mx: "auto" }}>
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontSize: 14,
+                fontWeight: 800,
+                mb: 3,
+              }}
+            >
+              [ PROFESSIONAL EXPERIENCE ]
+            </Typography>
+
+            <Typography
+              sx={{
+                fontSize: { xs: "3rem", md: "6.5rem" },
+                fontWeight: 900,
+                lineHeight: 0.9,
+                letterSpacing: "-0.07em",
+                mb: 10,
+              }}
+            >
+              WHERE I'VE
+              <br />
+              <span style={{ color: theme.accent }}>WORKED.</span>
+            </Typography>
+
+            <MotionBox
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              sx={{
+                position: "relative",
+                border: `1px solid ${theme.border}`,
+                p: { xs: 3, md: 6 },
+                background: theme.surface,
+                transition: "border-color 0.3s ease",
+                "&:hover": {
+                  borderColor: theme.accent,
+                },
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" },
+                  justifyContent: "space-between",
+                  alignItems: { xs: "flex-start", md: "center" },
+                  gap: 3,
+                  mb: 4,
+                }}
+              >
+                <Box>
+                  <Typography
+                    sx={{
+                      color: theme.accent,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      letterSpacing: 1.5,
+                      mb: 2,
+                    }}
+                  >
+                    01 / WORK EXPERIENCE
+                  </Typography>
+
+                  <Typography
+                    component="h3"
+                    sx={{
+                      fontSize: { xs: 28, md: 42 },
+                      fontWeight: 900,
+                      lineHeight: 1.15,
+                      mb: 1.5,
+                    }}
+                  >
+                    Web Designer / Developer
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      color: theme.muted,
+                      fontSize: { xs: 16, md: 19 },
+                    }}
+                  >
+                    LPC Advisors Pvt. Ltd.
+                  </Typography>
+                </Box>
+
+                <Chip
+                  label="Professional Experience"
+                  sx={{
+                    color: theme.accent,
+                    background: "rgba(183,255,60,0.08)",
+                    border: `1px solid ${theme.accent}`,
+                    borderRadius: 0,
+                    fontWeight: 700,
+                  }}
+                />
+              </Box>
+
+              <Typography
+                sx={{
+                  color: theme.muted,
+                  fontSize: { xs: 16, md: 18 },
+                  lineHeight: 1.9,
+                  mb: 4,
+                  maxWidth: 1000,
+                }}
+              >
+                Experienced in building responsive, user-friendly web interfaces
+                using modern frontend technologies. Focused on creating clean
+                UI, reusable components, cross-device compatibility, and smooth
+                user experiences.
+              </Typography>
+
+              <Typography
+                sx={{
+                  color: theme.text,
+                  fontSize: 18,
+                  fontWeight: 800,
+                  mb: 2,
+                }}
+              >
+                Key Responsibilities
+              </Typography>
+
+              <Box
+                component="ul"
+                sx={{
+                  pl: 2.5,
+                  m: 0,
+                  mb: 4,
+                  color: theme.muted,
+                  "& li": {
+                    pl: 1,
+                    mb: 1.5,
+                    lineHeight: 1.8,
+                  },
+                  "& li::marker": {
+                    color: theme.accent,
+                  },
+                }}
+              >
+                <li>
+                  Developed responsive and user-friendly web pages using HTML,
+                  CSS, JavaScript, and React.js.
+                </li>
+                <li>
+                  Built reusable UI components and maintained consistent layouts
+                  across desktop, tablet, and mobile devices.
+                </li>
+                <li>
+                  Worked with WordPress and web design tools to create and
+                  maintain website interfaces.
+                </li>
+                <li>
+                  Improved website usability, resolved UI issues, and ensured
+                  cross-browser compatibility.
+                </li>
+                <li>
+                  Collaborated on frontend implementation and integrated
+                  interfaces with backend APIs where required.
+                </li>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 1,
+                  pt: 3,
+                  borderTop: `1px solid ${theme.border}`,
+                }}
+              >
+                {[
+                  "HTML5",
+                  "CSS3",
+                  "JavaScript",
+                  "React.js",
+                  "WordPress",
+                  "Responsive Design",
+                  "UI Development",
+                ].map((skill) => (
+                  <Chip
+                    key={skill}
+                    label={skill}
+                    variant="outlined"
+                    sx={{
+                      color: theme.text,
+                      borderColor: theme.border,
+                      borderRadius: 0,
+                      "&:hover": {
+                        borderColor: theme.accent,
+                        color: theme.accent,
+                      },
+                    }}
+                  />
+                ))}
+              </Box>
+            </MotionBox>
+          </Box>
+        </Box>
+
+        {/* ===================================================== */}
         {/* PROJECTS */}
         {/* ===================================================== */}
 
@@ -1431,6 +1522,130 @@ export default function Portfolio() {
           </Box>
         </Box>
 
+        {/* ===================================================== */}
+        {/* ABOUT */}
+        {/* ===================================================== */}
+
+        <Box
+          id="about"
+          sx={{
+            px: { xs: 2, md: 5 },
+            py: { xs: 10, md: 18 },
+            borderTop: `1px solid ${theme.border}`,
+          }}
+        >
+          <MotionBox
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            sx={{
+              maxWidth: 1500,
+              mx: "auto",
+            }}
+          >
+            <Typography
+              sx={{
+                color: theme.accent,
+                fontSize: 14,
+                fontWeight: 800,
+                mb: 3,
+              }}
+            >
+              [ ABOUT ME ]
+            </Typography>
+
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  md: "1.25fr 0.75fr",
+                },
+                gap: {
+                  xs: 6,
+                  md: 12,
+                },
+                alignItems: "center",
+              }}
+            >
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: {
+                      xs: "2.8rem",
+                      md: "5.5rem",
+                    },
+                    fontWeight: 900,
+                    lineHeight: 0.95,
+                    letterSpacing: "-0.06em",
+                    mb: 4,
+                  }}
+                >
+                  BUILDING CLEAN.
+                  <br />
+                  <span style={{ color: theme.accent }}>BUILDING USEFUL.</span>
+                  <br />
+                  BUILDING FAST.
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    fontSize: {
+                      xs: 17,
+                      md: 20,
+                    },
+                    lineHeight: 1.8,
+                    maxWidth: 750,
+                    mb: 3,
+                  }}
+                >
+                  I'm Mayur Kumbhar, a React.js Developer with professional
+                  experience building responsive, high-performance and
+                  user-friendly web applications.
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    fontSize: {
+                      xs: 17,
+                      md: 20,
+                    },
+                    lineHeight: 1.8,
+                    maxWidth: 750,
+                    mb: 3,
+                  }}
+                >
+                  My core expertise includes React.js, JavaScript, HTML5, CSS3,
+                  Material UI and responsive frontend development. I enjoy
+                  building reusable components, integrating REST APIs and
+                  improving application performance across different devices and
+                  browsers.
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: theme.muted,
+                    fontSize: {
+                      xs: 17,
+                      md: 20,
+                    },
+                    lineHeight: 1.8,
+                    maxWidth: 750,
+                  }}
+                >
+                  I also have hands-on knowledge of Node.js, Express.js, Java,
+                  Spring Boot, Python and databases, helping me understand
+                  complete application workflows beyond the frontend.
+                </Typography>
+              </Box>
+
+              <SkillsBentoGrid />
+            </Box>
+          </MotionBox>
+        </Box>
         {/* ===================================================== */}
         {/* CONTACT - EXACT 50 / 50 */}
         {/* ===================================================== */}
