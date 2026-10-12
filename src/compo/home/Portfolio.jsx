@@ -71,7 +71,7 @@ const services = [
   {
     number: "01",
     title: "Frontend Development",
-    icon: <CodeIcon />,
+    icon: <CodeIcon />, 
     description:
       "Building responsive, scalable and user-friendly web applications using modern frontend technologies and reusable component architecture.",
     tags: ["React.js", "JavaScript", "HTML5", "CSS3"],
